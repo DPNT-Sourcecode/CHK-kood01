@@ -7,7 +7,7 @@ namespace BeFaster.App.Tests.Solutions.HLO;
 public class HelloSolutionTest
 {
 
-    [TestCase("test", ExpectedResult = "Hello, World!")]
+    [TestCase("John", ExpectedResult = "Hello, John!")]
     [TestCase("", ExpectedResult = "Hello, World!")]
     [TestCase(null, ExpectedResult = "Hello, World!")]
     public string SayHello(string? friendName)
@@ -15,4 +15,5 @@ public class HelloSolutionTest
         return HelloSolution.Hello(friendName);
     }
 }
+
 
