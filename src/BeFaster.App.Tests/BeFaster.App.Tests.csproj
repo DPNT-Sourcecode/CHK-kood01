@@ -23,10 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\BeFaster.App\BeFaster.App.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Solutions\HLO\" />
+    <ProjectReference Include="..\BeFaster.App\BeFaster.App.csproj" />
   </ItemGroup>
 
 </Project>
