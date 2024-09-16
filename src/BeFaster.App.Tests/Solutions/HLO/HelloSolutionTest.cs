@@ -8,6 +8,8 @@ public class HelloSolutionTest
 {
 
     [TestCase("test", ExpectedResult = "Hello World!")]
+    [TestCase("", ExpectedResult = "Hello World!")]
+    [TestCase(null, ExpectedResult = "Hello World!")]
     public string SayHello(string? friendName)
     {
         return HelloSolution.Hello(friendName);
