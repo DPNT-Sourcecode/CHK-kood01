@@ -68,7 +68,7 @@ public class CheckoutServiceTest
 
         //apply a promotion tat reduce the price by 10
         _mockPromotionService.Setup(service => service.ApplyPromotions(receipt))
-            .Callback((IEnumerable<ReceiptItem> receiptItems) =>
+            .Callback((Receipt receipt) =>
             {
                 //assume promotion applies to product A
                 if (receiptItems.Count() > 0)
@@ -113,5 +113,6 @@ public class CheckoutServiceTest
         Assert.That(total, Is.EqualTo(0));
     }
 }
+
 
 
