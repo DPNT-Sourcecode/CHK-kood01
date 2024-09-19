@@ -21,7 +21,7 @@ public class PromotionFactory : IPromotionFactory
             {
                 return new BulkBuyPromo(entity.ProductSku, entity.RequiredQuantity, entity.PromoPrice);
             }
-        });
+        }).ToList();
         
         return bulkPromos;
     }

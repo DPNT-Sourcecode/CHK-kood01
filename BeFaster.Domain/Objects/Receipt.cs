@@ -28,5 +28,3 @@ public class Receipt
     // in the future we want to add additional logic, such as: remove item, change item quantity, apply global promotions etc etc/
     
 }
-
-

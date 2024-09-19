@@ -40,7 +40,7 @@ public class CheckoutService: ICheckoutService
        }
 
        // apply promotions 
-       _promotionService.ApplyPromotions(receipt.GetAllItems());
+       _promotionService.ApplyPromotions(receipt);
        
        // Calculate the final price after applying promos
        return receipt.CalculateTotal();
