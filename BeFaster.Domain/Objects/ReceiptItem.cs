@@ -15,6 +15,6 @@ public class ReceiptItem
 
     public void ApplyPromotions(int promotion)
     {
-        Total -= promotion;
+        Total = promotion;
     }
 }
