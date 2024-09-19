@@ -1,6 +1,7 @@
 namespace BeFaster.Domain.Repositories;
 
-public class IPromotionRepository
+public interface IPromotionRepository<T> where T: class
 {
-    
+    IEnumerable<T> GetAll();
+    void Add(T entity);
 }
