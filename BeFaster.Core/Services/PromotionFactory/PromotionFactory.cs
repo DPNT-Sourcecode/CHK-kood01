@@ -9,17 +9,39 @@ public class PromotionFactory : IPromotionFactory
     {
         if (promotionEntities == null)
             return Enumerable.Empty<IPromo>();
+        
+        // Group promotions by SKU
 
-        var bulkPromos = promotionEntities.Select<Promotion, IPromo>(entity =>
+        var promotionsGrouped = promotionEntities
+            .GroupBy(p => p.ProductSku)
+            .ToDictionary(g => g.Key, g => g.ToList()); 
+        
+        var bulkPromos = promotionsGrouped.Select(g =>
         {
-            // we can do the same with Type field, as i described in Promotion Entity class, i decided to keep it simple for now 
+            var promotions = g.Value;
+
+            promotions.Where(p => p.FreeProductSku.HasValue).Select(entity =>
+            {
+                return new BuyXGetYFreePromo(entity.ProductSku, entity.RequiredQuantity, entity.PromoPrice,entity.FreeProductSku.Value);
+            });
+
+            promotions.Where(p => !p.FreeProductSku.HasValue).Select(entity =>
+            {
+                return new BulkBuyPromo(entity.ProductSku, entity.RequiredQuantity, entity.PromoPrice);
+            });
+        }
+            
+            
+            // we can do the same with Type field, as i described in Promotion Entity class, i decided to keep it simple for now
+            
+            
             if (entity.FreeProductSku.HasValue)
             {
                 return new BuyXGetYFreePromo(entity.ProductSku, entity.RequiredQuantity, entity.PromoPrice,entity.FreeProductSku.Value);
             }
             else
             {
-                return new BulkBuyPromo(entity.ProductSku, entity.RequiredQuantity, entity.PromoPrice);
+                
             }
         });
         
