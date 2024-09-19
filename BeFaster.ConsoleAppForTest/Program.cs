@@ -18,7 +18,7 @@ var inputProcessingService = new InputProcessingService();
 
 // input
 var input = "AAABCD";
-
+    
 // process input with input service and get productInputModel
 var productInputModel = inputProcessingService.ProcessInput(input);
 
