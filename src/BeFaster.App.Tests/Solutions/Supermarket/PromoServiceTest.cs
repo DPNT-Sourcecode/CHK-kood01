@@ -38,12 +38,14 @@ public class PromoServiceTest
         {
             new Promotion { Id = 1, ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 }
         };
+        var receipt = new Receipt();
+        receipt.AddItem(receiptItem);
 
         _mockPromotionRepository.Setup(repo => repo.GetAll()).Returns(promotionEntities);
         _mockPromotionFactory.Setup(factory => factory.CreatePromotions(promotionEntities)).Returns(promotions);
         
         // Act
-        _promotionService.ApplyPromotions(new List<ReceiptItem> {receiptItem});
+        _promotionService.ApplyPromotions(receipt);
         
         // Assert
         Assert.That(receiptItem.Total, Is.EqualTo(125));

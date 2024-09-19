@@ -39,7 +39,7 @@ public class CheckoutServiceTest
         receipt.AddItem(new ReceiptItem(new BasketItem(productA)));
         receipt.AddItem(new ReceiptItem(new BasketItem(productB)));
 
-        _mockPromotionService.Setup(service => service.ApplyPromotions(It.IsAny<IEnumerable<ReceiptItem>>()));
+        _mockPromotionService.Setup(service => service.ApplyPromotions(receipt));
 
         var productInputModel = new ProductInputModel(new List<char> { 'A', 'B' });
         

@@ -13,13 +13,15 @@ public class BulkBuyPromoTest
         var productA = new Product { ProductSku = 'A', Price = 50 };
         var basketItem = new BasketItem(productA, 5);
         var receiptItem = new ReceiptItem(basketItem);
+        var receipt = new Receipt();
+        receipt.AddItem(receiptItem);
         var promo = new BulkBuyPromo('A', 3, 125);
         
         // Act 
-        var discount = promo.GetDiscount(receiptItem);
+        var discount = promo.GetDiscount(receipt, productA.ProductSku);
 
         // Assert
-        Assert.That(discount, Is.EqualTo(25));
+        Assert.That(discount, Is.EqualTo(125));
     }
     
     [Test]
@@ -29,10 +31,12 @@ public class BulkBuyPromoTest
         var productA = new Product { ProductSku = 'A', Price = 50 };
         var basketItem = new BasketItem(productA, 2);
         var receiptItem = new ReceiptItem(basketItem);
+        var receipt = new Receipt();
+        receipt.AddItem(receiptItem);
         var promo = new BulkBuyPromo('A', 3, 125);
         
         // Act 
-        var discount = promo.GetDiscount(receiptItem);
+        var discount = promo.GetDiscount(receipt, productA.ProductSku);
         
         // Assert
         Assert.That(discount, Is.EqualTo(0));
@@ -45,10 +49,12 @@ public class BulkBuyPromoTest
         var productA = new Product { ProductSku = 'B', Price = 50 };
         var basketItem = new BasketItem(productA, 5);
         var receiptItem = new ReceiptItem(basketItem);
+        var receipt = new Receipt();
+        receipt.AddItem(receiptItem);
         var promo = new BulkBuyPromo('A', 3, 125);
         
         // Act 
-        var discount = promo.GetDiscount(receiptItem);
+        var discount = promo.GetDiscount(receipt, productA.ProductSku);
         
         // Assert
         Assert.That(discount, Is.EqualTo(0));
@@ -61,10 +67,12 @@ public class BulkBuyPromoTest
         var productA = new Product { ProductSku = 'B', Price = 0 };
         var basketItem = new BasketItem(productA, 5);
         var receiptItem = new ReceiptItem(basketItem);
+        var receipt = new Receipt();
+        receipt.AddItem(receiptItem);
         var promo = new BulkBuyPromo('A', 3, 0);
         
         // Act 
-        var discount = promo.GetDiscount(receiptItem);
+        var discount = promo.GetDiscount(receipt, productA.ProductSku);
         
         // Assert
         Assert.That(discount, Is.EqualTo(0));
