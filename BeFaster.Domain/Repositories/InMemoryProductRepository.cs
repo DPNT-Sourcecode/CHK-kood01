@@ -6,10 +6,10 @@ public class InMemoryProductRepository : IProductRepository<Product>
 {
     private readonly Dictionary<char, Product> _productsRepo = new()
     {
-        {'A', new Product {ProductSku = , Price = }},
-        {'B', new Product {ProductSku = , Price = }},
-        {'C', new Product {ProductSku = , Price = }},
-        {'D', new Product {ProductSku = , Price = }}
+        { 'A', new Product { ProductSku = 'A', Price = 50 } },
+        { 'B', new Product { ProductSku = 'B', Price = 30 } },
+        { 'C', new Product { ProductSku = 'C', Price = 20 } },
+        { 'D', new Product { ProductSku = 'D', Price = 15 } }
     };
     
     public Product? GetByProductSku(char productSku)
