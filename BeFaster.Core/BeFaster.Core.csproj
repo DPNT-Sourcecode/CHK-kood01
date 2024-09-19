@@ -10,4 +10,11 @@
       <ProjectReference Include="..\BeFaster.Domain\BeFaster.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="System.Private.CoreLib">
+        <HintPath>..\..\..\.dotnet\shared\Microsoft.NETCore.App\8.0.7\System.Private.CoreLib.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
+
