@@ -5,17 +5,16 @@ public class Receipt
 {
     private IList<ReceiptItem> _receiptItems = new List<ReceiptItem>();
     
-    // we want to get all items in receipt
     public IList<ReceiptItem> GetAllItems()
     {
         return _receiptItems;
     }
-    // we want to add new item to receipt
+    
     public void AddItem(ReceiptItem item)
     {
         _receiptItems.Add(item);
     }
-    // we want to calculate total
+    
     public int CalculateTotal()
     {
         return _receiptItems.Sum(item => item.Total);
