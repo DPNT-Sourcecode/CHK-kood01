@@ -9,14 +9,13 @@ public class InputProcessingService : IInputProcessingService
     {
         if (string.IsNullOrEmpty(input))
         {
-            return new ProductInputModel(new List<char>());
             //throw new ArgumentException("Input cannot be null or empty");
+            return new ProductInputModel(new List<char>());
         }
 
         if (input.Any(c => !char.IsLetter(c)))
         {
-            return new ProductInputModel(new List<char>());
-            //throw new ArgumentException("Input contains invalid characters. Only letters are allowed");
+            throw new ArgumentException("Input contains invalid characters. Only letters are allowed");
         }
 
         var skus = new List<char>();
@@ -28,3 +27,4 @@ public class InputProcessingService : IInputProcessingService
         return new ProductInputModel(skus);
     }
 }
+

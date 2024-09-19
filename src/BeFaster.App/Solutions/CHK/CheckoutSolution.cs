@@ -1,5 +1,6 @@
 ﻿using BeFaster.Core.Services;
 using BeFaster.Core.Services.PromotionFactory;
+using BeFaster.Domain.Models;
 using BeFaster.Domain.Repositories;
 using BeFaster.Runner.Exceptions;
 
@@ -19,9 +20,17 @@ namespace BeFaster.App.Solutions.CHK
             var chechoutService = new CheckoutService(productRepository, promotionService);
             var inputProcessingService = new InputProcessingService();
 
-
+            var productInputModel =  new ProductInputModel(new List<char>());
             // process input with input service and get productInputModel
-            var productInputModel = inputProcessingService.ProcessInput(skus);
+            try
+            {
+                productInputModel = inputProcessingService.ProcessInput(skus);
+            }
+            catch (ArgumentException ex)
+            {
+                return -1;
+            }
+            
 
             // calculate total price with promotions 
             var totalPrice = chechoutService.GetTotal(productInputModel);
@@ -30,3 +39,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+

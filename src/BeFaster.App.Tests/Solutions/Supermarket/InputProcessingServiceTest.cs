@@ -18,7 +18,7 @@ public class InputProcessingServiceTest
     public void ProcessInput_ShouldReturnProductInputModel_WhenInputIsValid()
     {
         // Arrange
-        var input = "ABC";
+        var input = "abc";
         
         // Act
         var result = _inputProcessingService.ProcessInput(input);
@@ -30,29 +30,26 @@ public class InputProcessingServiceTest
     }
     
     [Test]
-    public void ProcessInput_ShouldReturnEmptyList_WhenInputContainsInvalidCharacters()
+    public void ProcessInput_ShouldThrowArgumentException_WhenInputContainsInvalidCharacters()
     {
         // Arrange
         var inout = "abc!3pot";
         
-        // Act 
-        var productInputModel = _inputProcessingService.ProcessInput(inout);
-        
-        // Assert
-        Assert.That(productInputModel.ProductSkuList.Count, Is.EqualTo(0));
+        // Act & Assert
+        var ex = Assert.Throws<ArgumentException>(() => _inputProcessingService.ProcessInput(inout));
+        Assert.That(ex.Message, Is.EqualTo("Input contains invalid characters. Only letters are allowed"));
     }
     
     [Test]
-    public void ProcessInput_ShouldReturnEmptyList_WhenInputIsNullOrEmpty()
+    public void ProcessInput_ShouldThrowArgumentException_WhenInputIsNullOrEmpty()
     {
         // Arrange
         var inout = "";
         
-        // Act 
-        var productInputModel = _inputProcessingService.ProcessInput(inout);
-        
-        // Assert
-        Assert.That(productInputModel.ProductSkuList.Count, Is.EqualTo(0));
+        // Act & Assert
+        var ex = Assert.Throws<ArgumentException>(() => _inputProcessingService.ProcessInput(inout));
+        Assert.That(ex.Message, Is.EqualTo("Input cannot be null or empty"));
     }
 }
+
 
