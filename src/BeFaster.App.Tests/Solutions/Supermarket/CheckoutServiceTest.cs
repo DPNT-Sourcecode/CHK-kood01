@@ -85,4 +85,32 @@ public class CheckoutServiceTest
         // Assert
         Assert.That(total, Is.EqualTo(70));
     }
+    [Test]
+    public void GetTotal_InvalidProductSku_ReturnsMinusOne()
+    {
+        // Arrange
+        _mockProductRepository.Setup(repo => repo.GetByProductSku(It.IsAny<char>())).Returns((Product)null);
+        
+        var productInputModel = new ProductInputModel(new List<char> { 'X' });
+        
+        // Act
+        var total = _checkoutService.GetTotal(productInputModel);
+        
+        // Assert
+        Assert.That(total, Is.EqualTo(-1));
+    }
+    
+    [Test]
+    public void GetTotal_IEmptyProductSku_ReturnsMinusOne()
+    {
+        // Arrange
+        
+        var productInputModel = new ProductInputModel(new List<char> ());
+        
+        // Act
+        var total = _checkoutService.GetTotal(productInputModel);
+        
+        // Assert
+        Assert.That(total, Is.EqualTo(-1));
+    }
 }
