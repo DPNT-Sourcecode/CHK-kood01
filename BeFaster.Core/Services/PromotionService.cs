@@ -25,6 +25,19 @@ public class PromotionService : IPromotionService
     // anyway, i decided to keep it simple and not to overengineering here; 
     public void ApplyPromotions(IEnumerable<ReceiptItem> receiptItems)
     {
-        
+        var promotionEntities = _promotionRepository.GetAll();
+        var promotions = _promotionFactory.CreatePromotions(promotionEntities);
+
+        foreach (var receiptItem in receiptItems)
+        {
+            var aplicablePromotions = promotions.Where(promotion =>
+                promotion.ProductSku == receiptItem.BasketItem.Product.ProductSku);
+
+            int total = receiptItem.Total;
+            int discount = aplicablePromotions.Sum(promotion => promotion.GetDiscount(receiptItem));
+            int totalWithDiscount = total - discount;
+            
+            receiptItem.ApplyPromotions(_=>totalWithDiscount);
+        }
     }
 }
