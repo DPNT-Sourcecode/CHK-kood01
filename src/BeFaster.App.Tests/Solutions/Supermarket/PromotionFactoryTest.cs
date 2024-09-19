@@ -18,48 +18,62 @@ public class PromotionFactoryTest
         // Arrange
         var promotions = new List<Promotion>
         {
-            
-        }
-        
+            new Promotion { Id = 1, ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 }
+        };
+
         // Act
-        
-        
+        var result = _promotionFactory.CreatePromotions(promotions);
+
         // Assert
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOf<BulkBuyPromo>(result.FirstOrDefault());
+
+        var bulkBuyPromo = result.FirstOrDefault() as BulkBuyPromo;
+        Assert.That(bulkBuyPromo.ProductSku, Is.EqualTo('A'));
     } 
     
     [Test]
     public void CreatePromotions_EmptyPromotionList_ReturnEmptyList()
     {
         // Arrange
-        
-        
+        var promotions = new List<Promotion>();
+
         // Act
-        
-        
+        var result = _promotionFactory.CreatePromotions(promotions);
+
         // Assert
+        Assert.IsNotNull(result);
+        Assert.IsEmpty(result);
     } 
     
     [Test]
     public void CreatePromotions_NullPromotionsList_ThrowsArgumentNullException()
     {
-        // Arrange
-        
-        
-        // Act
-        
-        
-        // Assert
+        // Act & Assert
+        Assert.Throws<ArgumentNullException>(()=>_promotionFactory.CreatePromotions(null));
     } 
     
     [Test]
     public void CreatePromotions_MultipleValidPromotions_ReturnCorrectPromos()
     {
         // Arrange
-        
-        
+        var promotions = new List<Promotion>
+        {
+            new Promotion { Id = 1, ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 },
+            new Promotion { Id = 2, ProductSku = 'B', RequiredQuantity = 2, PromoPrice = 70 }
+        };
+
         // Act
-        
+        var result = _promotionFactory.CreatePromotions(promotions);
         
         // Assert
+        Assert.IsNotNull(result);
+        Assert.That(result.Count(), Is.EqualTo(2));
+
+        var promo1 = result.ElementAt(0) as BulkBuyPromo;
+        var promo2 = result.ElementAt(1) as BulkBuyPromo;
+
+        Assert.AreEqual('A', promo1.ProductSku);
+        Assert.AreEqual('B', promo2.ProductSku);
     } 
 }
