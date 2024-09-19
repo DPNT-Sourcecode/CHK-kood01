@@ -14,8 +14,8 @@ public class ReceiptItem
     }
 
     // i added this part just in case we want to apply different promos to the item
-    public void ApplyPromotions(Func<ReceiptItem, int> calculateTotalAndApplyPromotions)
+    public void ApplyPromotions(int promotion)
     {
-        Total = calculateTotalAndApplyPromotions(this);
+        Total -= promotion;
     }
 }

@@ -38,8 +38,8 @@ public class BuyXGetYFreePromo : IPromo
         if (freeItem is null) return 0;
 
         var totalDiscount = freeItemCount * freeItem.BasketItem.Product.Price;
-        
-        freeItem.ApplyPromotions(_ => totalDiscount );
+            
+        freeItem.ApplyPromotions(_ => totalDiscount);
         
         return 0; 
     }
