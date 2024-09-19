@@ -36,10 +36,9 @@ public class PromotionService : IPromotionService
             var aplicablePromotions = promotions.Where(promotion =>
                 promotion.ProductSku == receiptItem.Value.BasketItem.Product.ProductSku);
             
-            int total = receiptItem.Value.Total;
-            int discount = aplicablePromotions.Sum(promotion => promotion.GetDiscount(receipt, receiptItem.Key));
+            int discounted = aplicablePromotions.Sum(promotion => promotion.GetDiscount(receipt, receiptItem.Key));
             
-            receiptItem.Value.ApplyPromotions(discount);
+            receiptItem.Value.ApplyPromotions(discounted);
         }
     }
 }
