@@ -33,9 +33,21 @@ public class InputProcessingServiceTest
     public void ProcessInput_ShouldThrowArgumentException_WhenInputContainsInvalidCharacters()
     {
         // Arrange
+        var inout = "abc!3pot";
         
-        // Act
+        // Act & Assert
+        var ex = Assert.Throws<ArgumentException>(() => _inputProcessingService.ProcessInput(inout));
+        Assert.That(ex.Message, Is.EqualTo("Input contains invalid characters. Only letters are allowed"));
+    }
+    
+    [Test]
+    public void ProcessInput_ShouldThrowArgumentException_WhenInputIsNullOrEmpty()
+    {
+        // Arrange
+        var inout = "";
         
-        // Assert
+        // Act & Assert
+        var ex = Assert.Throws<ArgumentException>(() => _inputProcessingService.ProcessInput(inout));
+        Assert.That(ex.Message, Is.EqualTo("Input cannot be null or empty"));
     }
 }
