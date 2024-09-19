@@ -4,6 +4,8 @@ using BeFaster.Core.Services;
 using BeFaster.Core.Services.PromotionFactory;
 using BeFaster.Domain.Repositories;
 
+
+// setup repositories 
 var productRepository = new InMemoryProductRepository();
 var promotionRepository = new InMemoryPromotionRepository();
 

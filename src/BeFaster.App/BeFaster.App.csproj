@@ -9,9 +9,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\BeFaster.Core\BeFaster.Core.csproj" />
-    <ProjectReference Include="..\..\BeFaster.Domain\BeFaster.Domain.csproj" />
     <ProjectReference Include="..\..\src\BeFaster.Runner\BeFaster.Runner.csproj" />
   </ItemGroup>
 
 </Project>
+
 
