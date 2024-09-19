@@ -17,7 +17,7 @@ var chechoutService = new CheckoutService(productRepository,promotionService);
 var inputProcessingService = new InputProcessingService();
 
 // input
-var input = "AAAAABBCDEE";
+var input = "A";
     
 // process input with input service and get productInputModel
 var productInputModel = inputProcessingService.ProcessInput(input);
