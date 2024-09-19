@@ -45,7 +45,7 @@ public class InputProcessingServiceTest
     {
         // Arrange
         var inout = "";
-        
+         
         // Act & Assert
         var ex = Assert.Throws<ArgumentException>(() => _inputProcessingService.ProcessInput(inout));
         Assert.That(ex.Message, Is.EqualTo("Input cannot be null or empty"));
