@@ -37,10 +37,12 @@ public class PromotionService : IPromotionService
                 promotion.ProductSku == receiptItem.Value.BasketItem.Product.ProductSku);
             
             int total = receiptItem.Value.Total;
-            int discount = aplicablePromotions.Max(promotion => promotion.GetDiscount(receipt, receiptItem.Key));
+            var discounts = aplicablePromotions.Select(promotion => promotion.GetDiscount(receipt, receiptItem.Key));
+            var discount = discounts.Any() ? discounts.Max() : 0;
             int totalWithDiscount = total - discount;
             
             receiptItem.Value.ApplyPromotions(totalWithDiscount);
         }
     }
 }
+
