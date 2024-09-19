@@ -15,7 +15,7 @@ public class CheckoutServiceTest
     private CheckoutService _checkoutService;
     
     [SetUp]
-    public void setup()
+    public void Setup()
     {
         _mockProductRepository = new Mock<IProductRepository<Product>>();
         _mockPromotionService = new Mock<IPromotionService>();
