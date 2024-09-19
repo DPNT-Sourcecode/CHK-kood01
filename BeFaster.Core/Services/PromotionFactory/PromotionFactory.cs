@@ -8,7 +8,7 @@ public class PromotionFactory : IPromotionFactory
     public IEnumerable<IPromo> CreatePromotions(IEnumerable<Promotion> promotionEntities)
     {
         if (promotionEntities == null)
-            throw new ArgumentNullException(nameof(promotionEntities));
+            return new List<IPromo>();
 
         var bulkPromos = promotionEntities.Select(entity =>
             new BulkBuyPromo(entity.ProductSku, entity.RequiredQuantity, entity.PromoPrice));
