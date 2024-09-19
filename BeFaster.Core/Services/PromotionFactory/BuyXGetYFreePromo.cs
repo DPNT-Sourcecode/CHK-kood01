@@ -39,8 +39,9 @@ public class BuyXGetYFreePromo : IPromo
 
         var totalDiscount = freeItemCount * freeItem.BasketItem.Product.Price;
             
-        freeItem.ApplyPromotions(_ => totalDiscount);
+        freeItem.ApplyPromotions(totalDiscount);
         
         return 0; 
     }
 }
+
