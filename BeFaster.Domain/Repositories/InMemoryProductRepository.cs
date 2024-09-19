@@ -14,11 +14,14 @@ public class InMemoryProductRepository : IProductRepository<Product>
     
     public Product? GetByProductSku(char productSku)
     {
-        throw new NotImplementedException();
+        return _productsRepo.GetValueOrDefault(productSku);
     }
 
-    public void Add(Product entity)
+    public void Add(Product product)
     {
-        throw new NotImplementedException();
+        if (!_productsRepo.ContainsKey(product.ProductSku))
+        {
+            _productsRepo.Add(product.ProductSku, product);
+        }
     }
 }
