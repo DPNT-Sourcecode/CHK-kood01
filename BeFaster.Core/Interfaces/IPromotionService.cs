@@ -1,6 +1,8 @@
+using BeFaster.Domain.Objects;
+
 namespace BeFaster.Core.Interfaces;
 
-public class IPromotionService
+public interface IPromotionService
 {
-    
+    void ApplyPromotions(IList<ReceiptItem> receiptItems);
 }
