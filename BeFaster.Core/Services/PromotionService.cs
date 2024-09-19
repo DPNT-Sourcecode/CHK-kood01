@@ -27,12 +27,13 @@ public class PromotionService : IPromotionService
     {
         var promotionEntities = _promotionRepository.GetAll();
         var promotions = _promotionFactory.CreatePromotions(promotionEntities);
-
+        if (promotions is null) return;
+        
         foreach (var receiptItem in receiptItems)
         {
             var aplicablePromotions = promotions.Where(promotion =>
                 promotion.ProductSku == receiptItem.BasketItem.Product.ProductSku);
-
+            
             int total = receiptItem.Total;
             int discount = aplicablePromotions.Sum(promotion => promotion.GetDiscount(receiptItem));
             int totalWithDiscount = total - discount;
