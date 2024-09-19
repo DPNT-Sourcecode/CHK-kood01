@@ -6,7 +6,6 @@ namespace BeFaster.App.Tests.Solutions.HLO;
 [TestOf(typeof(HelloSolution))]
 public class HelloSolutionTest
 {
-
     [TestCase("John", ExpectedResult = "Hello, John!")]
     [TestCase("", ExpectedResult = "Hello, World!")]
     [TestCase(null, ExpectedResult = "Hello, World!")]
@@ -15,5 +14,3 @@ public class HelloSolutionTest
         return HelloSolution.Hello(friendName);
     }
 }
-
-
