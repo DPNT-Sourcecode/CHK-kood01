@@ -19,6 +19,9 @@ public class CheckoutService: ICheckoutService
 
     public int GetTotal(ProductInputModel productInputModel)
     {
+        if (productInputModel?.ProductSkuList?.Count < 1)
+            return -1;
+        
        // create basket and populate it with items based on product codes
        var basket = new Basket();
        foreach (var sku in productInputModel.ProductSkuList)

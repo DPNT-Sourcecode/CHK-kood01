@@ -104,7 +104,6 @@ public class CheckoutServiceTest
     public void GetTotal_IEmptyProductSku_ReturnsMinusOne()
     {
         // Arrange
-        
         var productInputModel = new ProductInputModel(new List<char> ());
         
         // Act
