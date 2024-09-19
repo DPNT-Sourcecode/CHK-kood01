@@ -101,7 +101,7 @@ public class CheckoutServiceTest
     }
     
     [Test]
-    public void GetTotal_IEmptyProductSku_ReturnsMinusOne()
+    public void GetTotal_IEmptyProductSku_ReturnsZero()
     {
         // Arrange
         var productInputModel = new ProductInputModel(new List<char> ());
@@ -110,6 +110,6 @@ public class CheckoutServiceTest
         var total = _checkoutService.GetTotal(productInputModel);
         
         // Assert
-        Assert.That(total, Is.EqualTo(-1));
+        Assert.That(total, Is.EqualTo(0));
     }
 }

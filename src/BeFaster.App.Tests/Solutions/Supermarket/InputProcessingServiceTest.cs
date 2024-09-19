@@ -18,7 +18,7 @@ public class InputProcessingServiceTest
     public void ProcessInput_ShouldReturnProductInputModel_WhenInputIsValid()
     {
         // Arrange
-        var input = "abc";
+        var input = "ABC";
         
         // Act
         var result = _inputProcessingService.ProcessInput(input);
