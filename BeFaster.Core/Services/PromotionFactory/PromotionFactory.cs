@@ -8,7 +8,7 @@ public class PromotionFactory : IPromotionFactory
     public IEnumerable<IPromo> CreatePromotions(IEnumerable<Promotion> promotionEntities)
     {
         if (promotionEntities == null)
-            return new List<IPromo>();
+            return Enumerable.Empty<IPromo>();
 
         var bulkPromos = promotionEntities.Select(entity =>
             new BulkBuyPromo(entity.ProductSku, entity.RequiredQuantity, entity.PromoPrice));
@@ -16,3 +16,4 @@ public class PromotionFactory : IPromotionFactory
         return bulkPromos;
     }
 }
+
