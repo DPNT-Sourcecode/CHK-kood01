@@ -5,9 +5,9 @@ public class Receipt
 {
     private readonly IDictionary<char, ReceiptItem> _receiptItems = new Dictionary<char, ReceiptItem>();
     
-    public IEnumerable<ReceiptItem> GetAllItems()
+    public IDictionary<char, ReceiptItem> GetAllItems()
     {
-        return _receiptItems.Select(s => s.Value);
+        return _receiptItems;
     }
 
     public ReceiptItem GetItemByKey(char key)
@@ -28,4 +28,5 @@ public class Receipt
     // in the future we want to add additional logic, such as: remove item, change item quantity, apply global promotions etc etc/
     
 }
+
 

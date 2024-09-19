@@ -7,6 +7,7 @@ public class Promotion
     public char ProductSku { get; set; }
     public int RequiredQuantity { get; set; }
     public int PromoPrice { get; set; }
+    public char? FreeProductSku { get; set; } // nullable, only for buy X get Y promotions
     
     // we also probably want to add some additional fields to extend business logic for promotions
     

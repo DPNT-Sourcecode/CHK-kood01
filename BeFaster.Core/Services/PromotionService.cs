@@ -23,22 +23,24 @@ public class PromotionService : IPromotionService
     // some promotions are stackable, but some of them not
     // some promos could potentially cancel another promotion, proobably even from another item
     // anyway, i decided to keep it simple and not to overengineering here; 
-    public void ApplyPromotions(IEnumerable<ReceiptItem> receiptItems)
+    public void ApplyPromotions(Receipt receipt)
     {
         var promotionEntities = _promotionRepository.GetAll();
         var promotions = _promotionFactory.CreatePromotions(promotionEntities);
         if (!promotions.Any()) return;
+
+        var receiptItems = receipt.GetAllItems();
         
         foreach (var receiptItem in receiptItems)
         {
             var aplicablePromotions = promotions.Where(promotion =>
-                promotion.ProductSku == receiptItem.BasketItem.Product.ProductSku);
+                promotion.ProductSku == receiptItem.Value.BasketItem.Product.ProductSku);
             
-            int total = receiptItem.Total;
-            int discount = aplicablePromotions.Sum(promotion => promotion.GetDiscount(receiptItem));
+            int total = receiptItem.Value.Total;
+            int discount = aplicablePromotions.Sum(promotion => promotion.GetDiscount(receipt, receiptItem.Key));
             int totalWithDiscount = total - discount;
             
-            receiptItem.ApplyPromotions(_=>totalWithDiscount);
+            receiptItem.Value.ApplyPromotions(_=>totalWithDiscount);
         }
     }
 }

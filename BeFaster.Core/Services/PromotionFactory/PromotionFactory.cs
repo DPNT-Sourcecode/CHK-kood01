@@ -11,7 +11,17 @@ public class PromotionFactory : IPromotionFactory
             return Enumerable.Empty<IPromo>();
 
         var bulkPromos = promotionEntities.Select(entity =>
-            new BulkBuyPromo(entity.ProductSku, entity.RequiredQuantity, entity.PromoPrice));
+        {
+            // we can do the same with Type field, as i described in Promotion Entity class, i decided to keep it simple for now 
+            if (entity.FreeProductSku.HasValue)
+            {
+                return new BuyXGetYFreePromo(entity.ProductSku, entity.RequiredQuantity, entity.PromoPrice,entity.FreeProductSku.Value);
+            }
+            else
+            {
+                return new BulkBuyPromo(entity.ProductSku, entity.RequiredQuantity, entity.PromoPrice);
+            }
+        });
         
         return bulkPromos;
     }
