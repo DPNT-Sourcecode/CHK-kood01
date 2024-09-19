@@ -67,13 +67,16 @@ public class CheckoutServiceTest
         receipt.AddItem(new ReceiptItem(new BasketItem(productB)));
 
         //apply a promotion tat reduce the price by 10
-        _mockPromotionService.Setup(service => service.ApplyPromotions(receipt))
+        _mockPromotionService.Setup(service => service.ApplyPromotions(It.IsAny<Receipt>()))
             .Callback((Receipt receipt) =>
             {
-                //assume promotion applies to product A
-                if (receiptItems.Count() > 0)
+                // Assume promotion applies to product A (product SKU 'A')
+                var receiptItem = receipt.GetItemByKey('A');
+        
+                if (receiptItem != null)
                 {
-                    receiptItems.First().ApplyPromotions(40);
+                    // Apply a promotion that reduces the price by 10
+                    receiptItem.ApplyPromotions(40); // Assuming the new price after promotion is 40
                 }
             });
 
@@ -113,6 +116,3 @@ public class CheckoutServiceTest
         Assert.That(total, Is.EqualTo(0));
     }
 }
-
-
-
