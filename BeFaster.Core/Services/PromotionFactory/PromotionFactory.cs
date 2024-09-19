@@ -16,4 +16,3 @@ public class PromotionFactory : IPromotionFactory
         return bulkPromos;
     }
 }
-

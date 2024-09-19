@@ -27,7 +27,7 @@ public class PromotionService : IPromotionService
     {
         var promotionEntities = _promotionRepository.GetAll();
         var promotions = _promotionFactory.CreatePromotions(promotionEntities);
-        if (promotions is null) return;
+        if (!promotions.Any()) return;
         
         foreach (var receiptItem in receiptItems)
         {
