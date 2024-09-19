@@ -17,7 +17,7 @@ var chechoutService = new CheckoutService(productRepository,promotionService);
 var inputProcessingService = new InputProcessingService();
 
 // input
-var input = "AAABBCDEE";
+var input = "AAAAABBCDEE";
     
 // process input with input service and get productInputModel
 var productInputModel = inputProcessingService.ProcessInput(input);
@@ -34,3 +34,4 @@ else
 {
     Console.WriteLine("Invalid product codes or product not found");
 }
+
