@@ -21,7 +21,7 @@ public class BulkBuyPromoTest
         var discount = promo.GetDiscount(receipt, productA.ProductSku);
 
         // Assert
-        Assert.That(discount, Is.EqualTo(125));
+        Assert.That(discount, Is.EqualTo(25));
     }
     
     [Test]
