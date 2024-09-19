@@ -10,10 +10,10 @@ public class Receipt
         return _receiptItems;
     }
 
-    public ReceiptItem GetItemByKey(char key)
+    public ReceiptItem? GetItemByKey(char key)
     {
         _receiptItems.TryGetValue(key, out var item);
-        return item ?? throw new InvalidOperationException();
+        return item;
     }
     
     public void AddItem(ReceiptItem item)

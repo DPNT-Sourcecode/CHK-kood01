@@ -21,17 +21,26 @@ public class BuyXGetYFreePromo : IPromo
     public int GetDiscount(Receipt receipt, char receiptKey)
     {
         var item = receipt.GetItemByKey(receiptKey);
+        if (item is null) return 0;
         
         if (item.BasketItem.Product.ProductSku != ProductSku) return 0;
-        
-        if(receipt)
         
         int quantity = item.BasketItem.Quantity;
 
         if (quantity < _requiredQuantity) return 0;
 
         int freeItemCount = quantity / _requiredQuantity;
+
+        if (freeItemCount < 1) return 0;
         
+        var freeItem = receipt.GetItemByKey(_freeProductSku);
         
+        if (freeItem is null) return 0;
+
+        var totalDiscount = freeItemCount * freeItem.BasketItem.Product.Price;
+        
+        freeItem.ApplyPromotions(_ => totalDiscount );
+        
+        return 0; 
     }
 }
