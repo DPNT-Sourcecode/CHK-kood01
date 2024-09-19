@@ -20,7 +20,7 @@ public class InputProcessingService : IInputProcessingService
         }
 
         var skus = new List<char>();
-        foreach (var sku in input.ToUpper())
+        foreach (var sku in input)
         {
             skus.Add(sku);
         }
