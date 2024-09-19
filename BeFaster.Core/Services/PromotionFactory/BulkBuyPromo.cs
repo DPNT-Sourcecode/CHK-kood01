@@ -19,7 +19,7 @@ public class BulkBuyPromo : IPromo
 
     public int GetDiscount(Receipt receipt, char receiptKey)
     {
-        var item = receipt.[receiptKey];
+        var item = receipt.GetItemByKey(receiptKey);
         
         if (item.BasketItem.Product.ProductSku != ProductSku) return 0;
 
