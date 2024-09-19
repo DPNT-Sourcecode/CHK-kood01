@@ -53,5 +53,3 @@ public class InputProcessingServiceTest
         Assert.That(inputModel.ProductSkuList.Count, Is.EqualTo(0));
     }
 }
-
-
