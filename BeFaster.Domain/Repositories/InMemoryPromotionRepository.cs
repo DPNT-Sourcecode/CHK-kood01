@@ -11,11 +11,11 @@ public class InMemoryPromotionRepository : IPromotionRepository<Promotion>
     };
     public IEnumerable<Promotion> GetAll()
     {
-        throw new NotImplementedException();
+        return _promotions;
     }
 
     public void Add(Promotion entity)
     {
-        throw new NotImplementedException();
+        _promotions.Add(entity);
     }
 }
