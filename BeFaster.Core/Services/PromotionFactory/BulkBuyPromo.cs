@@ -17,8 +17,10 @@ public class BulkBuyPromo : IPromo
         _promoPrice = promoPrice;
     }
 
-    public int GetDiscount(ReceiptItem item)
+    public int GetDiscount(Receipt receipt, char receiptKey)
     {
+        var item = receipt.[receiptKey];
+        
         if (item.BasketItem.Product.ProductSku != ProductSku) return 0;
 
         int quantity = item.BasketItem.Quantity;

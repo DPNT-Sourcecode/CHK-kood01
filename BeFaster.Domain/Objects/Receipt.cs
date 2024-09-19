@@ -9,6 +9,12 @@ public class Receipt
     {
         return _receiptItems.Select(s => s.Value);
     }
+
+    public ReceiptItem GetItemByKey(char key)
+    {
+        _receiptItems.TryGetValue(key, out var item);
+        return item ?? throw new InvalidOperationException();
+    }
     
     public void AddItem(ReceiptItem item)
     {
@@ -22,3 +28,4 @@ public class Receipt
     // in the future we want to add additional logic, such as: remove item, change item quantity, apply global promotions etc etc/
     
 }
+
