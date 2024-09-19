@@ -47,10 +47,13 @@ public class PromotionFactoryTest
     } 
     
     [Test]
-    public void CreatePromotions_NullPromotionsList_ThrowsArgumentNullException()
+    public void CreatePromotions_NullPromotionsList_ReturnNotNull()
     {
-        // Act & Assert
-        Assert.Throws<ArgumentNullException>(()=>_promotionFactory.CreatePromotions(null));
+        // Act 
+        var promotioms = _promotionFactory.CreatePromotions(null);
+        
+        // Assert
+        Assert.IsNotNull(promotioms);
     } 
     
     [Test]

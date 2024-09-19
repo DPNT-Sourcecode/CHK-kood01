@@ -30,7 +30,7 @@ public class InputProcessingServiceTest
     }
     
     [Test]
-    public void ProcessInput_ShouldThrowArgumentException_WhenInputContainsInvalidCharacters()
+    public void ProcessInput_ShouldReturnEmptyList_WhenInputContainsInvalidCharacters()
     {
         // Arrange
         var inout = "abc!3pot";
@@ -43,7 +43,7 @@ public class InputProcessingServiceTest
     }
     
     [Test]
-    public void ProcessInput_ShouldThrowArgumentException_WhenInputIsNullOrEmpty()
+    public void ProcessInput_ShouldReturnEmptyList_WhenInputIsNullOrEmpty()
     {
         // Arrange
         var inout = "";
@@ -55,3 +55,4 @@ public class InputProcessingServiceTest
         Assert.That(productInputModel.ProductSkuList.Count, Is.EqualTo(0));
     }
 }
+
