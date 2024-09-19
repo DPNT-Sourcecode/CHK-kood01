@@ -4,10 +4,10 @@ namespace BeFaster.Domain.Models;
 // in a future it will pass some additional data, like cashier id, customer discount card, etc etc
 public class ProductModel
 {
-    public char ProductSku { get; private set; }
+    public List<char> ProductSkuList { get; private set; }
 
-    public ProductModel(char productSku)
+    public ProductModel(List<char> productSkuList)
     {
-        ProductSku = productSku;
+        ProductSkuList = productSkuList;
     }
 }
