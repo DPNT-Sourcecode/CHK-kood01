@@ -4,5 +4,5 @@ namespace BeFaster.Core.Interfaces;
 
 public interface IPromotionService
 {
-    void ApplyPromotions(IList<ReceiptItem> receiptItems);
+    void ApplyPromotions(IEnumerable<ReceiptItem> receiptItems);
 }

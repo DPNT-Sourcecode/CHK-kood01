@@ -2,7 +2,7 @@ using BeFaster.Domain.Models;
 
 namespace BeFaster.Core.Interfaces;
 
-public interface IInputService
+public interface IInputProcessingService
 {
     ProductInputModel ProcessInput(string input);
 }
