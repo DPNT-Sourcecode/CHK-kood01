@@ -18,7 +18,7 @@ public class InputProcessingServiceTest
     public void ProcessInput_ShouldReturnProductInputModel_WhenInputIsValid()
     {
         // Arrange
-        var input = "abc";
+        var input = "ABC";
         
         // Act
         var result = _inputProcessingService.ProcessInput(input);
@@ -41,14 +41,16 @@ public class InputProcessingServiceTest
     }
     
     [Test]
-    public void ProcessInput_ShouldThrowArgumentException_WhenInputIsNullOrEmpty()
+    public void ProcessInput_ShouldReturnEmptyList_WhenInputIsNullOrEmpty()
     {
         // Arrange
         var inout = "";
         
-        // Act & Assert
-        var ex = Assert.Throws<ArgumentException>(() => _inputProcessingService.ProcessInput(inout));
-        Assert.That(ex.Message, Is.EqualTo("Input cannot be null or empty"));
+        // Act 
+        var inputModel = _inputProcessingService.ProcessInput(inout);
+        
+        // Assert
+        Assert.That(inputModel.ProductSkuList.Count, Is.EqualTo(0));
     }
 }
 
