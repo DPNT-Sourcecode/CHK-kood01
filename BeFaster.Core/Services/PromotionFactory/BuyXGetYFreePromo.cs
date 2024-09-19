@@ -44,4 +44,3 @@ public class BuyXGetYFreePromo : IPromo
         return 0; 
     }
 }
-

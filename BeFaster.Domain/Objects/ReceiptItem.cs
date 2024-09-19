@@ -13,7 +13,6 @@ public class ReceiptItem
         Total = basketItem.Product.Price * basketItem.Quantity;
     }
 
-    // i added this part just in case we want to apply different promos to the item
     public void ApplyPromotions(int promotion)
     {
         Total -= promotion;
