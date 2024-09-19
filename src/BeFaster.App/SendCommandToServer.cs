@@ -6,7 +6,7 @@ using BeFaster.App.Solutions.FIZ;
 using BeFaster.App.Solutions.HLO;
 using BeFaster.App.Solutions.SUM;
 using BeFaster.App.Solutions.ARRS;
-//using BeFaster.App.Solutions.IRNG;
+using BeFaster.App.Solutions.IRNG;
 using BeFaster.Runner;
 using BeFaster.Runner.Utils;
 using Newtonsoft.Json.Linq;

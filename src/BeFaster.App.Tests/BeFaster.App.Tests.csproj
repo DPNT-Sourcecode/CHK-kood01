@@ -26,4 +26,8 @@
     <ProjectReference Include="..\BeFaster.App\BeFaster.App.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Solutions\Supermarket\" />
+  </ItemGroup>
+
 </Project>
