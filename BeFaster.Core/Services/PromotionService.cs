@@ -34,15 +34,17 @@ public class PromotionService : IPromotionService
         foreach (var receiptItem in receiptItems)
         {
             var aplicablePromotions = promotions.Where(promotion =>
-                promotion.ProductSku == receiptItem.Value.BasketItem.Product.ProductSku);
+                promotion.ProductSku == receiptItem.Value.BasketItem.Product.ProductSku).ToList();
+            
+            if (!aplicablePromotions.Any()) continue;
             
             int total = receiptItem.Value.Total;
-            var discounts = aplicablePromotions.Select(promotion => promotion.GetDiscount(receipt, receiptItem.Key));
-            var discount = discounts.Any() ? discounts.Max() : 0;
+            var discount = aplicablePromotions.Max(promotion => promotion.GetDiscount(receipt, receiptItem.Key));
             int totalWithDiscount = total - discount;
             
             receiptItem.Value.ApplyPromotions(totalWithDiscount);
         }
     }
 }
+
 
