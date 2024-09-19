@@ -22,8 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BeFaster.Core\BeFaster.Core.csproj" />
     <ProjectReference Include="..\..\src\BeFaster.App\BeFaster.App.csproj" />
     <ProjectReference Include="..\BeFaster.App\BeFaster.App.csproj" />
   </ItemGroup>
 
 </Project>
+
