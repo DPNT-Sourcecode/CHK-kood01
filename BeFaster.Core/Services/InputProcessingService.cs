@@ -5,7 +5,7 @@ namespace BeFaster.Core.Services;
 
 public class InputProcessingService : IInputProcessingService
 {
-    public ProductInputModel ProcessInput(string input)
+    public ProductInputModel ProcessInput(string? input)
     {
         if (string.IsNullOrEmpty(input))
             throw new ArgumentException("Input cannot be null or empty");
