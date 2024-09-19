@@ -30,9 +30,10 @@ public class BulkBuyPromo : IPromo
 
         if (quantity < _requiredQuantity) return 0;
 
+        int plainTotal = quantity * pricePerItem;
         int promoTotal = (quantity / _requiredQuantity) * _promoPrice
                          + (quantity % _requiredQuantity) * pricePerItem;
 
-        return promoTotal;
+        return plainTotal - promoTotal;
     }
 }
