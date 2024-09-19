@@ -35,9 +35,11 @@ public class InputProcessingServiceTest
         // Arrange
         var inout = "abc!3pot";
         
-        // Act & Assert
-        var ex = Assert.Throws<ArgumentException>(() => _inputProcessingService.ProcessInput(inout));
-        Assert.That(ex.Message, Is.EqualTo("Input contains invalid characters. Only letters are allowed"));
+        // Act 
+        var productInputModel = _inputProcessingService.ProcessInput(inout);
+        
+        // Assert
+        Assert.That(productInputModel.ProductSkuList.Count, Is.EqualTo(0));
     }
     
     [Test]
@@ -45,9 +47,11 @@ public class InputProcessingServiceTest
     {
         // Arrange
         var inout = "";
-         
-        // Act & Assert
-        var ex = Assert.Throws<ArgumentException>(() => _inputProcessingService.ProcessInput(inout));
-        Assert.That(ex.Message, Is.EqualTo("Input cannot be null or empty"));
+        
+        // Act 
+        var productInputModel = _inputProcessingService.ProcessInput(inout);
+        
+        // Assert
+        Assert.That(productInputModel.ProductSkuList.Count, Is.EqualTo(0));
     }
 }

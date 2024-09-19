@@ -28,4 +28,3 @@ public class InputProcessingService : IInputProcessingService
         return new ProductInputModel(skus);
     }
 }
-
