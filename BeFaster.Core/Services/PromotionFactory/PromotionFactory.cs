@@ -9,7 +9,10 @@ public class PromotionFactory : IPromotionFactory
     {
         if (promotionEntities == null)
             throw new ArgumentNullException(nameof(promotionEntities));
+
+        var bulkPromos = promotionEntities.Select(entity =>
+            new BulkBuyPromo(entity.ProductSku, entity.RequiredQuantity, entity.PromoPrice));
         
-       return 
+        return bulkPromos;
     }
 }
