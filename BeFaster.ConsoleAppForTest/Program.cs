@@ -17,7 +17,7 @@ var chechoutService = new CheckoutService(productRepository,promotionService);
 var inputProcessingService = new InputProcessingService();
 
 // input
-var input = "AAAAA"; 
+var input = "AAAAAAAAAAFFFEEEEBBBB"; 
     
     // | Item | Price | Special offers         |
     // +------+-------+------------------------+
