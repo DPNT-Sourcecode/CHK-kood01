@@ -47,5 +47,3 @@ public class InMemoryProductRepository : IProductRepository<Product>
         }
     }
 }
-
-
