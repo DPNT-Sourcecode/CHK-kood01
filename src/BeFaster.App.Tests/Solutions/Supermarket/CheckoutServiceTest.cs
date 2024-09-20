@@ -76,7 +76,7 @@ public class CheckoutServiceTest
                 if (receiptItem != null)
                 {
                     // Apply a promotion that reduces the price by 10
-                    receiptItem.ApplyPromotions(40); // Assuming the new price after promotion is 40
+                    receiptItem.ApplyPromotions(40, 1); // Assuming the new price after promotion is 40
                 }
             });
 

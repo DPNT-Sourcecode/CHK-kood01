@@ -29,14 +29,15 @@ public class PromoServiceTest
         var productA = new Product { ProductSku = 'A', Price = 50 };
         var basketItem = new BasketItem(productA, 3);
         var receiptItem = new ReceiptItem(basketItem);
-
+        var promotionList = new List<Promotion>
+            { new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 } };
         var promotions = new List<IPromo>
         {
-            new BulkBuyPromo('A', 3, 125)
+            new BulkBuyPromo('A', promotionList)
         };
         var promotionEntities = new List<Promotion>
         {
-            new Promotion { Id = 1, ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 }
+            new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 }
         };
         var receipt = new Receipt();
         receipt.AddItem(receiptItem);

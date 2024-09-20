@@ -15,7 +15,9 @@ public class BulkBuyPromoTest
         var receiptItem = new ReceiptItem(basketItem);
         var receipt = new Receipt();
         receipt.AddItem(receiptItem);
-        var promo = new BulkBuyPromo('A', 3, 125);
+        var promotionList = new List<Promotion>
+            { new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 } };
+        var promo = new BulkBuyPromo('A', promotionList);
         
         // Act 
         var discount = promo.GetDiscount(receipt, productA.ProductSku);
@@ -33,7 +35,9 @@ public class BulkBuyPromoTest
         var receiptItem = new ReceiptItem(basketItem);
         var receipt = new Receipt();
         receipt.AddItem(receiptItem);
-        var promo = new BulkBuyPromo('A', 3, 125);
+        var promotionList = new List<Promotion>
+            { new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 } };
+        var promo = new BulkBuyPromo('A', promotionList);
         
         // Act 
         var discount = promo.GetDiscount(receipt, productA.ProductSku);
@@ -51,7 +55,9 @@ public class BulkBuyPromoTest
         var receiptItem = new ReceiptItem(basketItem);
         var receipt = new Receipt();
         receipt.AddItem(receiptItem);
-        var promo = new BulkBuyPromo('A', 3, 125);
+        var promotionList = new List<Promotion>
+            { new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 } };
+        var promo = new BulkBuyPromo('A', promotionList);
         
         // Act 
         var discount = promo.GetDiscount(receipt, productA.ProductSku);
@@ -69,7 +75,9 @@ public class BulkBuyPromoTest
         var receiptItem = new ReceiptItem(basketItem);
         var receipt = new Receipt();
         receipt.AddItem(receiptItem);
-        var promo = new BulkBuyPromo('A', 3, 0);
+        var promotionList = new List<Promotion>
+            { new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 0 } };
+        var promo = new BulkBuyPromo('A', promotionList);
         
         // Act 
         var discount = promo.GetDiscount(receipt, productA.ProductSku);

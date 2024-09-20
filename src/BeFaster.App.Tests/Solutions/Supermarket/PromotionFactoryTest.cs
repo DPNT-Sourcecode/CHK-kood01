@@ -1,5 +1,6 @@
 using BeFaster.Core.Services.PromotionFactory;
 using BeFaster.Domain.Entities;
+using BeFaster.Domain.Enums;
 
 namespace BeFaster.App.Tests.Solutions.Supermarket;
 
@@ -18,7 +19,7 @@ public class PromotionFactoryTest
         // Arrange
         var promotions = new List<Promotion>
         {
-            new Promotion { Id = 1, ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 }
+            new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 }
         };
 
         // Act
@@ -62,8 +63,8 @@ public class PromotionFactoryTest
         // Arrange
         var promotions = new List<Promotion>
         {
-            new Promotion { Id = 1, ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 },
-            new Promotion { Id = 2, ProductSku = 'B', RequiredQuantity = 2, PromoPrice = 70 }
+            new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125, Type = PromotionType.BulkBuy},
+            new Promotion { ProductSku = 'B', RequiredQuantity = 2, PromoPrice = 70, Type = PromotionType.BulkBuy}
         };
 
         // Act
