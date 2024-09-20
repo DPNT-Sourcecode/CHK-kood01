@@ -21,7 +21,7 @@ public class InMemoryPromotionRepository : IPromotionRepository<Promotion>
         new Promotion {ProductSku = 'R',RequiredQuantity = 3, FreeProductSku = 'Q', Type = PromotionType.BuyXGetYFree},
         new Promotion {ProductSku = 'U',RequiredQuantity = 4, FreeProductSku = 'U', Type = PromotionType.BuyXGetYFree},
         new Promotion {ProductSku = 'V',RequiredQuantity = 2, PromoPrice = 90, Type = PromotionType.BulkBuy},
-        new Promotion {ProductSku = 'V',RequiredQuantity = 3, PromoPrice = 120, Type = PromotionType.BulkBuy},
+        new Promotion {ProductSku = 'V',RequiredQuantity = 3, PromoPrice = 130, Type = PromotionType.BulkBuy},
     };
     public IEnumerable<Promotion> GetAll()
     {
@@ -33,4 +33,5 @@ public class InMemoryPromotionRepository : IPromotionRepository<Promotion>
         _promotions.Add(entity);
     }
 }
+
 
