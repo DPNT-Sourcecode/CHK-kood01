@@ -10,7 +10,7 @@ public class BuyXGetYFreePromoTests
     [SetUp]
     public void SetUp()
     {
-        _promo = new BuyXGetYFreePromo('A', 3, 0, 'B');
+        _promo = new BuyXGetYFreePromo('A', new List<Promotion>{new Promotion {ProductSku = 'A', RequiredQuantity = 3, FreeProductSku = 'B'}});
     }
 
     [Test]
