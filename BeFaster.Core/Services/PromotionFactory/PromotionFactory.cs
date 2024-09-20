@@ -21,13 +21,12 @@ public class PromotionFactory : IPromotionFactory
         foreach (var promoGroup in promotionsGrouped)
         {
             promos.AddRange(promoGroup.Value
-                .Where(p => p.FreeProductSku.HasValue)
+                .Where(p => p.Type == PromotionType.BuyXGetYFree)
                 .Select(p => new BuyXGetYFreePromo(promoGroup.Key, new List<Promotion> { p })));
-
-        
-            promos.Add(new BulkBuyPromo(promoGroup.Key, promoGroup.Value
-                .Where(p => !p.FreeProductSku.HasValue)
-                .ToList()));
+            
+            promos.AddRange(promoGroup.Value
+                .Where(p => p.Type == PromotionType.BulkBuy)
+                .Select(p => new BulkBuyPromo(promoGroup.Key, new List<Promotion> { p })));
         }
         
         return promos.OrderBy(p => p.Type);
