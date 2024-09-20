@@ -10,7 +10,8 @@ public class InMemoryPromotionRepository : IPromotionRepository<Promotion>
         new Promotion {ProductSku = 'A',RequiredQuantity = 3,PromoPrice = 130, Type = PromotionType.BulkBuy},
         new Promotion {ProductSku = 'A',RequiredQuantity = 5,PromoPrice = 200, Type = PromotionType.BulkBuy},
         new Promotion {ProductSku = 'B',RequiredQuantity = 2,PromoPrice = 45, Type = PromotionType.BulkBuy},
-        new Promotion {ProductSku = 'E',RequiredQuantity = 2, FreeProductSku = 'B', Type = PromotionType.BuyXGetYFree} // 2E get one B free
+        new Promotion {ProductSku = 'E',RequiredQuantity = 2, FreeProductSku = 'B', Type = PromotionType.BuyXGetYFree}, // 2E get one B free
+        new Promotion {ProductSku = 'E',RequiredQuantity = 2, FreeProductSku = 'B', Type = PromotionType.BuyXGetYFree}
     };
     public IEnumerable<Promotion> GetAll()
     {
