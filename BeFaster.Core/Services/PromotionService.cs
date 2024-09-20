@@ -25,24 +25,42 @@ public class PromotionService : IPromotionService
     // anyway, i decided to keep it simple and not to overengineering here; 
     public void ApplyPromotions(Receipt receipt)
     {
-        var promotionEntities = _promotionRepository.GetAll();
+        var receiptSkus = receipt.GetAllItems()
+            .Select(item => item.Value.BasketItem.Product.ProductSku)
+            .Distinct()
+            .ToList();
+        
+        var promotionEntities = _promotionRepository.GetAll().Where(w=>receiptSkus.Contains(w.ProductSku));
         var promotions = _promotionFactory.CreatePromotions(promotionEntities);
         if (!promotions.Any()) return;
 
-        var receiptItems = receipt.GetAllItems();
-        
-        foreach (var receiptItem in receiptItems)
+        foreach (var promotion in promotions)
         {
-            var aplicablePromotions = promotions.Where(promotion =>
-                promotion.ProductSku == receiptItem.Value.BasketItem.Product.ProductSku).ToList();
+            var applicableItems = receipt.GetAllItems()
+                .Where(item => item.Value.BasketItem.Product.ProductSku == promotion.ProductSku)
+                .ToList();
             
-            if (!aplicablePromotions.Any()) continue;
+            if (!applicableItems.Any()) continue;
             
-            int total = receiptItem.Value.Total;
-            var discount = aplicablePromotions.Max(promotion => promotion.GetDiscount(receipt, receiptItem.Key));
-            int totalWithDiscount = total - discount;
-            
-            receiptItem.Value.ApplyPromotions(totalWithDiscount);
+            foreach (var receiptItem in applicableItems)
+            {
+                int total = receiptItem.Value.Total;
+
+                // Calculate remaining eligible quantity
+                int remainingEligibleQuantity = receiptItem.Value.BasketItem.Quantity - receiptItem.Value.AppliedPromotionsCount;
+                
+                // Check exit condition
+                if (remainingEligibleQuantity <= 0) continue;
+                
+                // Apply the discount from the promotion
+                var discount = promotion.GetDiscount(receipt, receiptItem.Key);
+
+                // Ensure that the total discount doesn’t exceed the total value
+                int totalWithDiscount = total - Math.Min(total, discount);
+
+                // Update the receipt item with the discounted price
+                receiptItem.Value.ApplyPromotions(totalWithDiscount, remainingEligibleQuantity);
+            }
         }
     }
 }

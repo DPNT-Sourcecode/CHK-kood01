@@ -1,12 +1,14 @@
+using BeFaster.Domain.Enums;
+
 namespace BeFaster.Domain.Entities;
 
 // in real life implementation we will separate Entity from Objects, but for test task purpose we just keep it simple
 public class Promotion
 {
-    public int Id { get; set; }
     public char ProductSku { get; set; }
     public int RequiredQuantity { get; set; }
     public int PromoPrice { get; set; }
+    public PromotionType Type { get; set; }
     public char? FreeProductSku { get; set; } // nullable, only for buy X get Y promotions
     
     // we also probably want to add some additional fields to extend business logic for promotions

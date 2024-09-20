@@ -1,4 +1,5 @@
 using BeFaster.Domain.Entities;
+using BeFaster.Domain.Enums;
 
 namespace BeFaster.Domain.Repositories;
 
@@ -6,10 +7,10 @@ public class InMemoryPromotionRepository : IPromotionRepository<Promotion>
 {
     private readonly List<Promotion> _promotions = new()
     {
-        new Promotion {Id = 1,ProductSku = 'A',RequiredQuantity = 3,PromoPrice = 130},
-        new Promotion {Id = 2,ProductSku = 'A',RequiredQuantity = 5,PromoPrice = 200},
-        new Promotion {Id = 3,ProductSku = 'B',RequiredQuantity = 2,PromoPrice = 45},
-        new Promotion {Id = 4,ProductSku = 'E',RequiredQuantity = 2, FreeProductSku = 'B'} // 2E get one B free
+        new Promotion {ProductSku = 'A',RequiredQuantity = 3,PromoPrice = 130, Type = PromotionType.BulkBuy},
+        new Promotion {ProductSku = 'A',RequiredQuantity = 5,PromoPrice = 200, Type = PromotionType.BulkBuy},
+        new Promotion {ProductSku = 'B',RequiredQuantity = 2,PromoPrice = 45, Type = PromotionType.BulkBuy},
+        new Promotion {ProductSku = 'E',RequiredQuantity = 2, FreeProductSku = 'B', Type = PromotionType.BuyXGetYFree} // 2E get one B free
     };
     public IEnumerable<Promotion> GetAll()
     {

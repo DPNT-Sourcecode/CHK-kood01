@@ -1,4 +1,6 @@
 using BeFaster.Core.Interfaces;
+using BeFaster.Domain.Entities;
+using BeFaster.Domain.Enums;
 using BeFaster.Domain.Objects;
 
 namespace BeFaster.Core.Services.PromotionFactory;
@@ -6,42 +8,49 @@ namespace BeFaster.Core.Services.PromotionFactory;
 public class BuyXGetYFreePromo : IPromo
 {
     public char ProductSku { get; }
+    public PromotionType Type => PromotionType.BuyXGetYFree;
+    private readonly IEnumerable<Promotion> _promotions;
 
-    private readonly int _requiredQuantity;
-    private readonly int _promoPrice;
-    private readonly char _freeProductSku;
-
-    public BuyXGetYFreePromo( char productSku, int requiredQuantity, int promoPrice, char freeProductSku)
+    public BuyXGetYFreePromo( char productSku, IEnumerable<Promotion> promotions)
     {
         ProductSku = productSku;
-        _requiredQuantity = requiredQuantity;
-        _promoPrice = promoPrice;
-        _freeProductSku = freeProductSku;
+        _promotions = promotions;
     }
     public int GetDiscount(Receipt receipt, char receiptKey)
     {
         var item = receipt.GetItemByKey(receiptKey);
-        if (item is null) return 0;
-        
-        if (item.BasketItem.Product.ProductSku != ProductSku) return 0;
+        if (item ==  null || item.BasketItem.Product.ProductSku != ProductSku) return 0;
         
         int quantity = item.BasketItem.Quantity;
+        int appliedPromos = item.AppliedPromotionsCount; // Track how many promotions were already applied
 
-        if (quantity < _requiredQuantity) return 0;
-
-        int freeItemCount = quantity / _requiredQuantity;
-
-        if (freeItemCount < 1) return 0;
+        // Calculate how many items are still eligible for promotions
+        int remainingEligibleQuantity = quantity - appliedPromos;
         
-        var freeItem = receipt.GetItemByKey(_freeProductSku);
-        
-        if (freeItem is null) return 0;
+        // get applicable promotions
+        var applicablePromotions = _promotions
+            .Where(p => p.ProductSku == ProductSku && remainingEligibleQuantity >= p.RequiredQuantity)
+            .ToList();
 
-        var totalDiscount = freeItemCount * freeItem.BasketItem.Product.Price;
+        if (!applicablePromotions.Any()) return 0;
 
-        var finalPrice = freeItem.Total - totalDiscount;
+        foreach (var promo in applicablePromotions)
+        {
+            if (remainingEligibleQuantity <= 0) break;
             
-        freeItem.ApplyPromotions(finalPrice);
+            int freeItemCount = quantity / promo.RequiredQuantity;
+            if (freeItemCount < 1) continue;
+            
+            var freeItem = receipt.GetItemByKey(promo.FreeProductSku.Value);
+            if (freeItem == null) continue;
+            
+            var totalDiscount = freeItemCount * freeItem.BasketItem.Product.Price;
+            var finalPrice = freeItem.Total - Math.Min(freeItem.Total,totalDiscount);
+            
+            freeItem.ApplyPromotions(finalPrice, freeItemCount);
+
+            remainingEligibleQuantity -= freeItemCount;
+        }
         
         return 0; 
     }

@@ -1,5 +1,6 @@
 using BeFaster.Core.Interfaces;
 using BeFaster.Domain.Entities;
+using BeFaster.Domain.Enums;
 
 namespace BeFaster.Core.Services.PromotionFactory;
 
@@ -11,27 +12,24 @@ public class PromotionFactory : IPromotionFactory
             return Enumerable.Empty<IPromo>();
 
         // Group promotions by SKU
-
-        var promotionsGrouped = promotionEntities
+        Dictionary<char, List<Promotion>> promotionsGrouped = promotionEntities
             .GroupBy(p => p.ProductSku)
             .ToDictionary(g => g.Key, g => g.ToList());
-
-        var bulkPromos = promotionsGrouped.Select(g =>
-        {
-            var promotions = g.Value;
-
-            promotions.Where(p => p.FreeProductSku.HasValue).Select(entity =>
-            {
-                return new BuyXGetYFreePromo(entity.ProductSku, entity.RequiredQuantity, entity.PromoPrice,
-                    entity.FreeProductSku.Value);
-            });
-
-            promotions.Where(p => !p.FreeProductSku.HasValue).Select(entity =>
-            {
-                return new BulkBuyPromo(entity.ProductSku, entity.RequiredQuantity, entity.PromoPrice);
-            });
-        });
         
-        return bulkPromos;
+        var promos = new List<IPromo>();
+        
+        foreach (var promoGroup in promotionsGrouped)
+        {
+            promos.AddRange(promoGroup.Value
+                .Where(p => p.FreeProductSku.HasValue)
+                .Select(p => new BuyXGetYFreePromo(promoGroup.Key, new List<Promotion> { p })));
+
+        
+            promos.Add(new BulkBuyPromo(promoGroup.Key, promoGroup.Value
+                .Where(p => !p.FreeProductSku.HasValue)
+                .ToList()));
+        }
+        
+        return promos.OrderBy(p => p.Type);
     }
 }
