@@ -19,13 +19,15 @@ var inputProcessingService = new InputProcessingService();
 // input
 var input = "AAAAAAAAAAFFFEEEEBBBB"; 
     
-    // | Item | Price | Special offers         |
-    // +------+-------+------------------------+
-    // | A    | 50    | 3A for 130, 5A for 200 |
-    // | B    | 30    | 2B for 45              |
-    // | C    | 20    |                        |
-    // | D    | 15    |                        |
-    // | E    | 40    | 2E get one B free      |
+// +------+-------+------------------------+
+//     | Item | Price | Special offers         |
+//     +------+-------+------------------------+
+//     | A    | 50    | 3A for 130, 5A for 200 |
+//     | B    | 30    | 2B for 45              |
+//     | C    | 20    |                        |
+//     | D    | 15    |                        |
+//     | E    | 40    | 2E get one B free      |
+//     | F    | 10    | 2F get one F free      |
     
 // process input with input service and get productInputModel
 var productInputModel = inputProcessingService.ProcessInput(input);
@@ -42,3 +44,4 @@ else
 {
     Console.WriteLine("Invalid product codes or product not found");
 }
+
