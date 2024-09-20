@@ -18,7 +18,15 @@ var inputProcessingService = new InputProcessingService();
 
 // input
 var input = "AAAAAAAAAAFFFEEEEBBBB"; 
+    //ABCDEFABCDEF
+    //AA BB CC DD EE FF AA BB
     
+    // AA = 100 - 100
+    // BB = 45 - 30
+    // CC = 40 - 40
+    // DD = 30 - 30
+    // EE = 80 - 40 
+    // FF = 20 - 20 
 // +------+-------+------------------------+
 //     | Item | Price | Special offers         |
 //     +------+-------+------------------------+
@@ -28,7 +36,11 @@ var input = "AAAAAAAAAAFFFEEEEBBBB";
 //     | D    | 15    |                        |
 //     | E    | 40    | 2E get one B free      |
 //     | F    | 10    | 2F get one F free      |
-    
+    //
+    // Some requests have failed (2/46). Here are some of them:
+    // - {"method":"checkout","params":["ABCDEFABCDEF"],"id":"CHK_R3_044"}, expected: 300, got: 285
+    //     - {"method":"checkout","params":["CDFFAECBDEAB"],"id":"CHK_R3_045"}, expected: 300, got: 285
+
 // process input with input service and get productInputModel
 var productInputModel = inputProcessingService.ProcessInput(input);
 
@@ -44,4 +56,5 @@ else
 {
     Console.WriteLine("Invalid product codes or product not found");
 }
+
 
