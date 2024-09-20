@@ -11,6 +11,7 @@ public class InMemoryProductRepository : IProductRepository<Product>
         { 'C', new Product { ProductSku = 'C', Price = 20 } },
         { 'D', new Product { ProductSku = 'D', Price = 15 } },
         { 'E', new Product { ProductSku = 'E', Price = 40 } },
+        { 'F', new Product { ProductSku = 'F', Price = 10 } },
     };
     
     public Product? GetByProductSku(char productSku)

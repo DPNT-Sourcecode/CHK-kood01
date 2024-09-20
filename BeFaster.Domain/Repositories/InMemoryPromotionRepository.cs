@@ -11,7 +11,7 @@ public class InMemoryPromotionRepository : IPromotionRepository<Promotion>
         new Promotion {ProductSku = 'A',RequiredQuantity = 5,PromoPrice = 200, Type = PromotionType.BulkBuy},
         new Promotion {ProductSku = 'B',RequiredQuantity = 2,PromoPrice = 45, Type = PromotionType.BulkBuy},
         new Promotion {ProductSku = 'E',RequiredQuantity = 2, FreeProductSku = 'B', Type = PromotionType.BuyXGetYFree}, // 2E get one B free
-        new Promotion {ProductSku = 'E',RequiredQuantity = 2, FreeProductSku = 'B', Type = PromotionType.BuyXGetYFree}
+        new Promotion {ProductSku = 'F',RequiredQuantity = 3, FreeProductSku = 'F', Type = PromotionType.BuyXGetYFree}  // 2F get one F free   |YOU have to have at least 3 items in a basket
     };
     public IEnumerable<Promotion> GetAll()
     {
@@ -23,3 +23,4 @@ public class InMemoryPromotionRepository : IPromotionRepository<Promotion>
         _promotions.Add(entity);
     }
 }
+
