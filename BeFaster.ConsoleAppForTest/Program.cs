@@ -17,7 +17,7 @@ var chechoutService = new CheckoutService(productRepository,promotionService);
 var inputProcessingService = new InputProcessingService();
 
 // input
-var input = "ABCDEFABCDEF"; 
+var input = "CDFFAECBDEAB"; 
     //ABCDEFABCDEF
     //AA BB CC DD EE FF
     

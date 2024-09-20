@@ -36,6 +36,7 @@ public class PromotionFactory : IPromotionFactory
             }
         }
 
-        return promos;
+        // order is critical here, we want to return promos and apply them in order
+        return promos.OrderBy(p => p.Type);
     }
 }
