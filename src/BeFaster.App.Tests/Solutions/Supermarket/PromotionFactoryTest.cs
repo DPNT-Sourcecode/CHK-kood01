@@ -19,7 +19,7 @@ public class PromotionFactoryTest
         // Arrange
         var promotions = new List<Promotion>
         {
-            new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 }
+            new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125, Type = PromotionType.BulkBuy}
         };
 
         // Act
