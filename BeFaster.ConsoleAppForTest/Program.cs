@@ -17,15 +17,15 @@ var chechoutService = new CheckoutService(productRepository,promotionService);
 var inputProcessingService = new InputProcessingService();
 
 // input
-var input = "AAAAAAAAAAFFFEEEEBBBB"; 
+var input = "ABCDEFABCDEF"; 
     //ABCDEFABCDEF
     //AA BB CC DD EE FF
     
     // AA = 100 - 100
-    // BB = 45 - 30
+    // BB = 60 - 30
     // CC = 40 - 40
     // DD = 30 - 30
-    // EE = 80 - 40 
+    // EE = 80 - 80 
     // FF = 20 - 20 
 // +------+-------+------------------------+
 //     | Item | Price | Special offers         |
@@ -56,6 +56,3 @@ else
 {
     Console.WriteLine("Invalid product codes or product not found");
 }
-
-
-
