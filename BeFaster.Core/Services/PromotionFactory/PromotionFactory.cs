@@ -17,18 +17,25 @@ public class PromotionFactory : IPromotionFactory
             .ToDictionary(g => g.Key, g => g.ToList());
         
         var promos = new List<IPromo>();
-        
+
         foreach (var promoGroup in promotionsGrouped)
         {
-            promos.AddRange(promoGroup.Value
-                .Where(p => p.Type == PromotionType.BuyXGetYFree)
-                .Select(p => new BuyXGetYFreePromo(promoGroup.Key, new List<Promotion> { p })));
-            
-            promos.AddRange(promoGroup.Value
-                .Where(p => p.Type == PromotionType.BulkBuy)
-                .Select(p => new BulkBuyPromo(promoGroup.Key, new List<Promotion> { p })));
+            var promoByType = promoGroup.Value.GroupBy(g => g.Type);
+
+            foreach (var typeGroup in promoByType)
+            {
+                switch (typeGroup.Key)
+                {
+                    case PromotionType.BuyXGetYFree:
+                        promos.Add(new BuyXGetYFreePromo(promoGroup.Key, typeGroup));
+                        break;
+                    case PromotionType.BulkBuy:
+                        promos.Add(new BulkBuyPromo(promoGroup.Key, typeGroup));
+                        break;
+                }
+            }
         }
-        
-        return promos.OrderBy(p => p.Type);
+
+        return promos;
     }
 }
