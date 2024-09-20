@@ -19,7 +19,7 @@ var inputProcessingService = new InputProcessingService();
 // input
 var input = "AAAAAAAAAAFFFEEEEBBBB"; 
     //ABCDEFABCDEF
-    //AA BB CC DD EE FF AA BB
+    //AA BB CC DD EE FF
     
     // AA = 100 - 100
     // BB = 45 - 30
@@ -56,5 +56,6 @@ else
 {
     Console.WriteLine("Invalid product codes or product not found");
 }
+
 
 
