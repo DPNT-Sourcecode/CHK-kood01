@@ -44,8 +44,6 @@ public class PromotionService : IPromotionService
             
             foreach (var receiptItem in applicableItems)
             {
-                int total = receiptItem.Value.Total;
-
                 // Calculate remaining eligible quantity
                 int remainingEligibleQuantity = receiptItem.Value.BasketItem.Quantity - receiptItem.Value.AppliedPromotionsCount;
                 
@@ -54,7 +52,8 @@ public class PromotionService : IPromotionService
                 
                 // Apply the discount from the promotion
                 var discount = promotion.GetDiscount(receipt, receiptItem.Key);
-
+                
+                int total = receiptItem.Value.Total;
                 // Ensure that the total discount doesn’t exceed the total value
                 int totalWithDiscount = total - Math.Min(total, discount);
 
