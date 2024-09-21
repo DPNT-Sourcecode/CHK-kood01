@@ -17,7 +17,7 @@ var chechoutService = new CheckoutService(productRepository,promotionService);
 var inputProcessingService = new InputProcessingService();
 
 // input
-var input = "FFFF"; 
+var input = "VVVVV"; 
     //ABCDEFABCDEF
     //AA BB CC DD EE FF
     
@@ -40,7 +40,13 @@ var input = "FFFF";
     // Some requests have failed (2/46). Here are some of them:
     // - {"method":"checkout","params":["ABCDEFABCDEF"],"id":"CHK_R3_044"}, expected: 300, got: 285
     //     - {"method":"checkout","params":["CDFFAECBDEAB"],"id":"CHK_R3_045"}, expected: 300, got: 285
-
+    //
+    // Result is: FAILED
+    //     Some requests have failed (2/149). Here are some of them:
+    // - {"method":"checkout","params":["VVVVV"],"id":"CHK_R5_103"}, expected: 220, got: 219
+    //     - {"method":"checkout","params":["VVVVVV"],"id":"CHK_R5_104"}, expected: 260, got: 259
+    // You have received a penalty of: 10 min
+    //     The round will restart now
 // process input with input service and get productInputModel
 var productInputModel = inputProcessingService.ProcessInput(input);
 
