@@ -30,7 +30,7 @@ public class PromotionFactoryTest
         Assert.IsInstanceOf<BulkBuyPromo>(result.FirstOrDefault());
 
         var bulkBuyPromo = result.FirstOrDefault() as BulkBuyPromo;
-        Assert.That(bulkBuyPromo.ProductSku, Is.EqualTo('A'));
+        Assert.That(bulkBuyPromo.ProductSkus, Is.EqualTo('A'));
     } 
     
     [Test]
@@ -77,7 +77,7 @@ public class PromotionFactoryTest
         var promo1 = result.ElementAt(0) as BulkBuyPromo;
         var promo2 = result.ElementAt(1) as BulkBuyPromo;
 
-        Assert.AreEqual('A', promo1.ProductSku);
-        Assert.AreEqual('B', promo2.ProductSku);
+        Assert.AreEqual('A', promo1.ProductSkus);
+        Assert.AreEqual('B', promo2.ProductSkus);
     } 
 }

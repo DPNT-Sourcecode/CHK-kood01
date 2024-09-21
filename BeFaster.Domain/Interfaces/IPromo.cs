@@ -5,7 +5,8 @@ namespace BeFaster.Core.Interfaces;
 
 public interface IPromo
 {
-    char ProductSku { get; }
+    List<char> ProductSkus { get; }
+    int RequiredQuantity { get; set; }
     public PromotionType Type { get; }
-    int GetDiscount(Receipt receipt, char receiptId);
+    void ApplyDiscount(Receipt receipt);
 }

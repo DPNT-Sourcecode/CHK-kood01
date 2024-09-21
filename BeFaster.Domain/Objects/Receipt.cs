@@ -3,7 +3,7 @@ namespace BeFaster.Domain.Objects;
 public class Receipt
 {
     //private readonly IDictionary<char, ReceiptItem> _receiptItems = new Dictionary<char, ReceiptItem>();
-    public readonly List<ReceiptItem> ReceptionItems = new();
+    public readonly List<ReceiptItem> ReceiptItems = new();
     //
     // public IDictionary<char, ReceiptItem> GetAllItems()
     // {
@@ -18,7 +18,7 @@ public class Receipt
     
     public void AddItem(ReceiptItem item)
     {
-        ReceptionItems.Add(item);
+        ReceiptItems.Add(item);
     }
     
     public int CalculateTotal()
