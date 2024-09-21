@@ -38,85 +38,19 @@ public class BulkBuyPromoTest
         Assert.That(discountedItems.Count, Is.EqualTo(3));
         Assert.IsTrue(discountedItems.All(item => Math.Round(item.DiscountedTotal, 2) == 33.33m));
     }
-    
-    
-    // [Test]
-    // public void GetDiscount_EnoughQuantity_ReturnCorrectDiscount()
-    // {
-    //     // Arrange
-    //     var productA = new Product { ProductSku = 'A', Price = 50 };
-    //     var basketItem = new BasketItem(productA, 5);
-    //     var receiptItem = new ReceiptItem(basketItem);
-    //     var receipt = new Receipt();
-    //     receipt.AddItem(receiptItem);
-    //     var promotionList = new List<Promotion>
-    //         { new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 } };
-    //     var promo = new BulkBuyPromo('A', promotionList);
-    //     
-    //     // Act 
-    //     var discount = promo.GetDiscount(receipt, productA.ProductSku);
-    //
-    //     // Assert
-    //     Assert.That(discount, Is.EqualTo(25));
-    // }
-    //
-    // [Test]
-    // public void GetDiscount_NotEnoughQuantity_ReturnsNoDiscount()
-    // {
-    //     // Arrange
-    //     var productA = new Product { ProductSku = 'A', Price = 50 };
-    //     var basketItem = new BasketItem(productA, 2);
-    //     var receiptItem = new ReceiptItem(basketItem);
-    //     var receipt = new Receipt();
-    //     receipt.AddItem(receiptItem);
-    //     var promotionList = new List<Promotion>
-    //         { new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 } };
-    //     var promo = new BulkBuyPromo('A', promotionList);
-    //     
-    //     // Act 
-    //     var discount = promo.GetDiscount(receipt, productA.ProductSku);
-    //     
-    //     // Assert
-    //     Assert.That(discount, Is.EqualTo(0));
-    // }
-    //
-    // [Test]
-    // public void GetDiscount_DifferentProductSku_ReturnsNoDiscount()
-    // {
-    //     // Arrange
-    //     var productA = new Product { ProductSku = 'B', Price = 50 };
-    //     var basketItem = new BasketItem(productA, 5);
-    //     var receiptItem = new ReceiptItem(basketItem);
-    //     var receipt = new Receipt();
-    //     receipt.AddItem(receiptItem);
-    //     var promotionList = new List<Promotion>
-    //         { new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 } };
-    //     var promo = new BulkBuyPromo('A', promotionList);
-    //     
-    //     // Act 
-    //     var discount = promo.GetDiscount(receipt, productA.ProductSku);
-    //     
-    //     // Assert
-    //     Assert.That(discount, Is.EqualTo(0));
-    // }
-    //
-    // [Test]
-    // public void GetDiscount_ZeroPricePerItem_ReturnsCorrectDiscount()
-    // {
-    //     // Arrange
-    //     var productA = new Product { ProductSku = 'B', Price = 0 };
-    //     var basketItem = new BasketItem(productA, 5);
-    //     var receiptItem = new ReceiptItem(basketItem);
-    //     var receipt = new Receipt();
-    //     receipt.AddItem(receiptItem);
-    //     var promotionList = new List<Promotion>
-    //         { new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 0 } };
-    //     var promo = new BulkBuyPromo('A', promotionList);
-    //     
-    //     // Act 
-    //     var discount = promo.GetDiscount(receipt, productA.ProductSku);
-    //     
-    //     // Assert
-    //     Assert.That(discount, Is.EqualTo(0));
-    // }
+
+    [Test]
+    public void ApplyDiscounts_ShouldRemovePreviousPromotions_WhenBetterPromoExist()
+    {
+        // Arrange
+        var worsePromo = new BulkBuyPromo(new List<char> { 'a' },3,120m);
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 40m, AppliedPromo = worsePromo});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 40m, AppliedPromo = worsePromo});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 40m, AppliedPromo = null});
+        
+
+        // Act 
+
+        // Assert
+    }
 }
