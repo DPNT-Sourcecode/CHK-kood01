@@ -7,12 +7,12 @@ namespace BeFaster.Core.Services.PromotionFactory;
 
 public class BuyXGetYFreePromo : IPromo
 {
-    private readonly char _freeProductSku;
+    private readonly char? _freeProductSku;
     public List<char> ProductSkus { get; }
     public int RequiredQuantity { get; set; }
     public PromotionType Type => PromotionType.BuyXGetYFree;
 
-    public BuyXGetYFreePromo( List<char> productSkus,  int requiredQuantity, char freeProductSku)
+    public BuyXGetYFreePromo( List<char> productSkus,  int requiredQuantity, char? freeProductSku)
     {
         ProductSkus = productSkus;
         RequiredQuantity = requiredQuantity;
@@ -38,3 +38,4 @@ public class BuyXGetYFreePromo : IPromo
         });
     }
 }
+
