@@ -7,7 +7,7 @@ public class Promotion
 {
     public char ProductSku { get; set; }
     public int RequiredQuantity { get; set; }
-    public int PromoPrice { get; set; }
+    public decimal PromoPrice { get; set; }
     public PromotionType Type { get; set; }
     public char? FreeProductSku { get; set; } // nullable, only for buy X get Y promotions
     
