@@ -94,19 +94,18 @@ public class BulkBuyPromoTest
     public void ApplyDiscounts_ShouldRemovePromos_WhenAplicableCountConditionsMet()
     {
         // Arrange
-        var promo = new BulkBuyPromo(new List<char> { 'a' },2,40m);
-        var receipt = new Receipt();
-        receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 33.33m, AppliedPromo = _promo});
-        receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 33.33m, AppliedPromo = _promo});
-        receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 33.33m, AppliedPromo = _promo});
-        receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'B', Total = 50m, DiscountedTotal = 33.33m, AppliedPromo = _promo});
+        var promo = new BulkBuyPromo(new List<char> { 'A' },2,40m);
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 50m, AppliedPromo = _promo});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 50m, AppliedPromo = _promo});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 50m, AppliedPromo = _promo});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'B', Total = 50m, DiscountedTotal = 50m, AppliedPromo = _promo});
         
         // Act
-        promo.ApplyDiscount(receipt);
+        promo.ApplyDiscount(_receipt);
         
         // Assert
-        var discountedItems = receipt.ReceiptItems.Where(item => item.AppliedPromo == promo).ToList();
+        var discountedItems = _receipt.ReceiptItems.Where(item => item.AppliedPromo == promo).ToList();
         Assert.That(discountedItems.Count, Is.EqualTo(2));
-        Assert.IsTrue(receipt.ReceiptItems.All(item=>item.AppliedPromo==null||item.ProductSku!='A'));
+        Assert.IsTrue(_receipt.ReceiptItems.All(item=>item.AppliedPromo==null||item.ProductSku!='A'||discountedItems.Contains(item)));
     }
 }
