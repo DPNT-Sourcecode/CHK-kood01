@@ -23,7 +23,7 @@ public class Receipt
     
     public int CalculateTotal()
     {
-        return (int)ReceiptItems.Sum(s => s.DiscountedTotal);
+        return (int)Math.Round(ReceiptItems.Sum(s => s.DiscountedTotal),2,MidpointRounding.AwayFromZero);
     }
     // in the future we want to add additional logic, such as: remove item, change item quantity, apply global promotions etc etc/
     
