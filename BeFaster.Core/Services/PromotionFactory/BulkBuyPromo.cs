@@ -102,4 +102,3 @@ public class BulkBuyPromo : IPromo
         return false;
     }
 }
-

@@ -38,4 +38,3 @@ public class BuyXGetYFreePromo : IPromo
         });
     }
 }
-

@@ -34,4 +34,3 @@ public class InMemoryPromotionRepository : IPromotionRepository<Promotion>
         _promotions.Add(entity);
     }
 }
-
