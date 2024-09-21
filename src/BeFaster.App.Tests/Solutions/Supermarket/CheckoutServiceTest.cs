@@ -13,10 +13,12 @@ public class CheckoutServiceTest
     private Mock<IProductRepository<Product>> _mockProductRepository;
     private Mock<IPromotionService> _mockPromotionService;
     private CheckoutService _checkoutService;
+    private Receipt _receipt;
     
     [SetUp]
     public void Setup()
     {
+        _receipt = new Receipt();
         _mockProductRepository = new Mock<IProductRepository<Product>>();
         _mockPromotionService = new Mock<IPromotionService>();
         _checkoutService = new CheckoutService(_mockProductRepository.Object, _mockPromotionService.Object);
@@ -47,6 +49,31 @@ public class CheckoutServiceTest
 
         // Assert
         Assert.That(result, Is.EqualTo(-1));
+    }
+
+    [Test]
+    public void GetTotal_ShouldCalculateTotal_WhenValidProductProvided()
+    {
+        // Arrange
+        var productInputModel = new ProductInputModel(new List<char> { 'A', 'B' });
+        var productA = new Product { ProductSku = 'A', Price = 50 };
+        var productB = new Product { ProductSku = 'B', Price = 30 };
+        
+        _mockProductRepository.Setup(repo => repo.GetByProductSku('A')).Returns(productA);
+        _mockProductRepository.Setup(repo => repo.GetByProductSku('B')).Returns(productB);
+        
+        _receipt.AddItem(new ReceiptItem(){ProductSku = 'A',Total = productA.Price, DiscountedTotal = productA.Price});
+        _receipt.AddItem(new ReceiptItem(){ProductSku = 'B',Total = productB.Price, DiscountedTotal = productB.Price});
+
+        _mockPromotionService.Setup(service => service.ApplyPromotions(It.IsAny<Receipt>()));
+        _mockPromotionService.Setup(service => service.ApplyPromotions(_receipt));
+        var total = productA.Price + productB.Price;
+        
+        // Act
+        var result = _checkoutService.GetTotal(productInputModel); 
+        
+        // Assert 
+        Assert.That(result, Is.EqualTo(total));
     }
 
     // [Test]
@@ -143,3 +170,4 @@ public class CheckoutServiceTest
     //     Assert.That(total, Is.EqualTo(0));
     // }
 }
+
