@@ -11,30 +11,20 @@ public class PromotionFactory : IPromotionFactory
         if (promotionEntities == null)
             return Enumerable.Empty<IPromo>();
 
-        // Group promotions by SKU
-        // Dictionary<char, List<Promotion>> promotionsGrouped = promotionEntities
-        //     .GroupBy(p => p.ProductSku)
-        //     .ToDictionary(g => g.Key, g => g.ToList());
-        
         var promos = new List<IPromo>();
-        //
-        // foreach (var promoGroup in promotionsGrouped)
-        // {
-        //     var promoByType = promoGroup.Value.GroupBy(g => g.Type);
-
-        foreach (var typeGroup in promoByType)
+        
+        foreach (var promo in promotionEntities)
         {
-            switch (typeGroup.Key)
+            switch (promo.Type)
             {
                 case PromotionType.BuyXGetYFree:
-                    promos.Add(new BuyXGetYFreePromo(promoGroup.Key, typeGroup));
+                    promos.Add(new BuyXGetYFreePromo(promo.ProductSkus, promo.RequiredQuantity, promo.FreeProductSku));
                     break;
                 case PromotionType.BulkBuy:
-                    promos.Add(new BulkBuyPromo(promoGroup.Key, typeGroup));
+                    promos.Add(new BulkBuyPromo(promo.ProductSkus, promo.RequiredQuantity,promo.PromoPrice));
                     break;
             }
         }
-        // }
 
         // order is critical here, we want to return promos and apply them in order
         return promos.OrderBy(p => p.Type);

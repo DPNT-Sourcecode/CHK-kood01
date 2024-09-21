@@ -23,7 +23,7 @@ public class Receipt
     
     public int CalculateTotal()
     {
-        return 0m; //_receiptItems.Sum(item => item.Value.Total);
+        return (int)ReceiptItems.Sum(s => s.DiscountedTotal);
     }
     // in the future we want to add additional logic, such as: remove item, change item quantity, apply global promotions etc etc/
     

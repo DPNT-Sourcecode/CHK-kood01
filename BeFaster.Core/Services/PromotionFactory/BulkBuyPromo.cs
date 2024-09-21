@@ -12,9 +12,9 @@ public class BulkBuyPromo : IPromo
     public List<char> ProductSkus { get; }
     public PromotionType Type => PromotionType.BulkBuy;
 
-    public BulkBuyPromo(List<char> productSkuses, int requiredQuantity, decimal promoPrice)
+    public BulkBuyPromo(List<char> productSkus, int requiredQuantity, decimal promoPrice)
     {
-        ProductSkus = productSkuses;
+        ProductSkus = productSkus;
         RequiredQuantity = requiredQuantity;
         _promoPrice = promoPrice;
     }
@@ -22,7 +22,7 @@ public class BulkBuyPromo : IPromo
     public void ApplyDiscount(Receipt receipt)
     {
         var foundItems = receipt.ReceiptItems
-                                    .Where(w => ProductSkus.Contains(w.ProductSkus) 
+                                    .Where(w => ProductSkus.Contains(w.ProductSku) 
                                                 &&(w.AppliedPromo == null 
                                                    ||(w.AppliedPromo.Type==Type && IsThisPromoBetter(w.AppliedPromo))))
                                     .OrderByDescending(o=>o.Total)

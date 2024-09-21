@@ -5,7 +5,7 @@ namespace BeFaster.Domain.Entities;
 // in real life implementation we will separate Entity from Objects, but for test task purpose we just keep it simple
 public class Promotion
 {
-    public char ProductSku { get; set; }
+    public List<char> ProductSkus { get; set; }
     public int RequiredQuantity { get; set; }
     public decimal PromoPrice { get; set; }
     public PromotionType Type { get; set; }

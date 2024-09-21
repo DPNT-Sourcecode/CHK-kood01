@@ -7,51 +7,34 @@ namespace BeFaster.Core.Services.PromotionFactory;
 
 public class BuyXGetYFreePromo : IPromo
 {
-    public char ProductSku { get; }
+    private readonly char _freeProductSku;
+    public List<char> ProductSkus { get; }
+    public int RequiredQuantity { get; set; }
     public PromotionType Type => PromotionType.BuyXGetYFree;
-    private readonly IEnumerable<Promotion> _promotions;
 
-    public BuyXGetYFreePromo( char productSku, IEnumerable<Promotion> promotions)
+    public BuyXGetYFreePromo( List<char> productSkus,  int requiredQuantity, char freeProductSku)
     {
-        ProductSku = productSku;
-        _promotions = promotions;
+        ProductSkus = productSkus;
+        RequiredQuantity = requiredQuantity;
+        _freeProductSku = freeProductSku;
     }
-    public int GetDiscount(Receipt receipt, char receiptKey)
+
+    public void ApplyDiscount(Receipt receipt)
     {
-        // var item = receipt.GetItemByKey(receiptKey);
-        // if (item ==  null || item.BasketItem.Product.ProductSku != ProductSku) return 0;
-        //
-        // int quantity = item.BasketItem.Quantity;
-        // int appliedPromos = item.AppliedPromotionsCount; // Track how many promotions were already applied
-        //
-        // // Calculate how many items are still eligible for promotions
-        // int remainingEligibleQuantity = quantity - appliedPromos;
-        //
-        // // get applicable promotions
-        // var applicablePromotions = _promotions
-        //     .Where(p => p.ProductSku == ProductSku && remainingEligibleQuantity >= p.RequiredQuantity)
-        //     .ToList();
-        //
-        // if (!applicablePromotions.Any()) return 0;
-        //
-        // foreach (var promo in applicablePromotions)
-        // {
-        //     if (remainingEligibleQuantity <= 0) break;
-        //     
-        //     int freeItemCount = quantity / promo.RequiredQuantity;
-        //     if (freeItemCount < 1) continue;
-        //     
-        //     var freeItem = receipt.GetItemByKey(promo.FreeProductSku.Value);
-        //     if (freeItem == null) continue;
-        //     
-        //     var totalDiscount = freeItemCount * freeItem.BasketItem.Product.Price;
-        //     var finalPrice = freeItem.Total - Math.Min(freeItem.Total,totalDiscount);
-        //     
-        //     freeItem.ApplyPromotions(finalPrice, freeItemCount);
-        //
-        //     remainingEligibleQuantity -= freeItemCount;
-        // }
-        //
-        // return 0; 
+        var foundItems = receipt.ReceiptItems
+            .Where(w => ProductSkus.Contains(w.ProductSku) && (w.AppliedPromo == null))
+            .OrderByDescending(o => o.Total)
+            .ToList();
+
+
+        int freeItemCont = foundItems.Count / RequiredQuantity;
+        var promoBatch = receipt.ReceiptItems.Where(w => w.ProductSku == _freeProductSku).Take(freeItemCont).ToList();
+
+        // we assuming that this type of Promo is more important than BulkBuy, so we applying it right away, if anything changes - need to extend logic similar to buy bulk promo
+        promoBatch.ForEach(item =>
+        {
+            item.AppliedPromo = this;
+            item.DiscountedTotal = 0m;
+        });
     }
 }

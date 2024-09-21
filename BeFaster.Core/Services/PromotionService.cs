@@ -17,6 +17,10 @@ public class PromotionService : IPromotionService
         _promotionFactory = promotionFactory;
     }
     
+    // Because we need promotions to be applied in specific order, we applying promotions one buy one to all receipt. 
+    // potentially it should not cause performance issues, unless we have millions promos per receipt,
+    // I'm assuming that we would normaly have dozens, or hundreds promotions per receipt, not millions, otherwise it will take more advanced logic
+    
     public void ApplyPromotions(Receipt receipt)
     {
         var receiptSkus = receipt.ReceiptItems
