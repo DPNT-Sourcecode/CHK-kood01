@@ -39,7 +39,7 @@ public class CheckoutServiceTest
     public void GetTotal_ShouldReturnMinusOne_WhenProductNotFound()
     {
         // Arrange
-        var productInputModel = new ProductInputModel(new List<char>());
+        var productInputModel = new ProductInputModel(new List<char> { 'A' });
         _mockProductRepository.Setup(repo => repo.GetByProductSku('A')).Returns((Product)null);
         
         // Act 
