@@ -75,35 +75,32 @@ public class PromoServiceTest
         Assert.IsTrue(_receipt.ReceiptItems.Any(item => item.AppliedPromo == null));
     }
 
+    [Test]
+    public void ApplyPromotions_ShouldHandleMulltiplePromotions()
+    {
+        // Arrange
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 100m, DiscountedTotal = 100m, AppliedPromo = null});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'B', Total = 200m, DiscountedTotal = 200m, AppliedPromo = null});
 
+        var promotions = new List<Promotion>
+        {
+            new Promotion { ProductSkus = ['A'] },
+            new Promotion { ProductSkus = ['B'] }
+        };
 
-    // [Test]
-    // public void ApplyPromotions_ValidPromotions_ApploesCorrectDiscounts()
-    // {
-    //     // Arrange
-    //     var productA = new Product { ProductSku = 'A', Price = 50 };
-    //     var basketItem = new BasketItem(productA, 3);
-    //     var receiptItem = new ReceiptItem(basketItem);
-    //     var promotionList = new List<Promotion>
-    //         { new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 } };
-    //     var promotions = new List<IPromo>
-    //     {
-    //         new BulkBuyPromo('A', promotionList)
-    //     };
-    //     var promotionEntities = new List<Promotion>
-    //     {
-    //         new Promotion { ProductSku = 'A', RequiredQuantity = 3, PromoPrice = 125 }
-    //     };
-    //     var receipt = new Receipt();
-    //     receipt.AddItem(receiptItem);
-    //
-    //     _mockPromotionRepository.Setup(repo => repo.GetAll()).Returns(promotionEntities);
-    //     _mockPromotionFactory.Setup(factory => factory.CreatePromotions(promotionEntities)).Returns(promotions);
-    //     
-    //     // Act
-    //     _promotionService.ApplyPromotions(receipt);
-    //     
-    //     // Assert
-    //     Assert.That(receiptItem.Total, Is.EqualTo(125));
-    // }
+        _mockPromotionRepository.Setup(repo => repo.GetAll()).Returns(promotions.AsQueryable());
+        _mockPromotionFactory.Setup(factory => factory.CreatePromotions(It.IsAny<IEnumerable<Promotion>>()))
+            .Returns(new List<IPromo>
+            {
+                new BulkBuyPromo(new List<char> { 'A' }, 1, 50m),
+                new BulkBuyPromo(new List<char> { 'B' }, 1, 150m),
+            });
+        
+        // Act 
+        _promotionService.ApplyPromotions(_receipt);
+        
+        // Assert
+        Assert.That(_receipt.ReceiptItems[0].DiscountedTotal, Is.EqualTo(50));
+        Assert.That(_receipt.ReceiptItems[1].DiscountedTotal, Is.EqualTo(150));
+    }
 }
