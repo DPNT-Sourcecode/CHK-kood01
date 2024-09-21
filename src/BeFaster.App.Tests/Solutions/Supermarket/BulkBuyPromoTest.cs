@@ -56,7 +56,57 @@ public class BulkBuyPromoTest
         Assert.That(discountedItems.Count, Is.EqualTo(3));
         Assert.IsTrue(discountedItems.All(item => Math.Round(item.DiscountedTotal, 2) == 33.33m));
     }
+
+    [Test]
+    public void ApplyDiscounts_ShouldNotApplyPromotions_WhenNoEligibleItemsPresent()
+    {
+        // Arrange 
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 50m, AppliedPromo = null});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'B', Total = 50m, DiscountedTotal = 50m, AppliedPromo = null});
+        
+        // Act
+        _promo.ApplyDiscount(_receipt);
+        
+        // Assert
+        var discountedItems = _receipt.ReceiptItems.Where(item => item.AppliedPromo == _promo).ToList();
+        Assert.That(discountedItems.Count, Is.EqualTo(0));
+    }
     
     [Test]
-    public void ApplyDiscounts_ShouldNotApplyPromotions_WhenNoEligibleItemsPresent
+    public void ApplyDiscounts_ShouldApplyCorrectNumberOfPromos_WhenMoreItems()
+    {
+        // Arrange 
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 50m, AppliedPromo = null});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 50m, AppliedPromo = null});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 50m, AppliedPromo = null});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 50m, AppliedPromo = null});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'B', Total = 50m, DiscountedTotal = 50m, AppliedPromo = null});
+        
+        // Act
+        _promo.ApplyDiscount(_receipt);
+        
+        // Assert
+        var discountedItems = _receipt.ReceiptItems.Where(item => item.AppliedPromo == _promo).ToList();
+        Assert.That(discountedItems.Count, Is.EqualTo(3));
+    }
+    
+    [Test]
+    public void ApplyDiscounts_ShouldRemovePromos_WhenAplicableCountConditionsMet()
+    {
+        // Arrange
+        var promo = new BulkBuyPromo(new List<char> { 'a' },2,40m);
+        var receipt = new Receipt();
+        receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 33.33m, AppliedPromo = _promo});
+        receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 33.33m, AppliedPromo = _promo});
+        receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 33.33m, AppliedPromo = _promo});
+        receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'B', Total = 50m, DiscountedTotal = 33.33m, AppliedPromo = _promo});
+        
+        // Act
+        promo.ApplyDiscount(receipt);
+        
+        // Assert
+        var discountedItems = receipt.ReceiptItems.Where(item => item.AppliedPromo == promo).ToList();
+        Assert.That(discountedItems.Count, Is.EqualTo(2));
+        Assert.IsTrue(receipt.ReceiptItems.All(item=>item.AppliedPromo==null||item.ProductSku!='A'));
+    }
 }
