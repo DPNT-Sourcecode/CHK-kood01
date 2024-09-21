@@ -16,7 +16,7 @@ public class InMemoryProductRepository : IProductRepository<Product>
         { 'H', new Product { ProductSku = 'H', Price = 10 } },
         { 'I', new Product { ProductSku = 'I', Price = 35 } },
         { 'J', new Product { ProductSku = 'J', Price = 60 } },
-        { 'K', new Product { ProductSku = 'K', Price = 80 } },
+        { 'K', new Product { ProductSku = 'K', Price = 70 } },
         { 'L', new Product { ProductSku = 'L', Price = 90 } },
         { 'M', new Product { ProductSku = 'M', Price = 15 } },
         { 'N', new Product { ProductSku = 'N', Price = 40 } },
@@ -24,14 +24,14 @@ public class InMemoryProductRepository : IProductRepository<Product>
         { 'P', new Product { ProductSku = 'P', Price = 50 } },
         { 'Q', new Product { ProductSku = 'Q', Price = 30 } },
         { 'R', new Product { ProductSku = 'R', Price = 50 } },
-        { 'S', new Product { ProductSku = 'S', Price = 30 } },
+        { 'S', new Product { ProductSku = 'S', Price = 20 } },
         { 'T', new Product { ProductSku = 'T', Price = 20 } },
         { 'U', new Product { ProductSku = 'U', Price = 40 } },
         { 'V', new Product { ProductSku = 'V', Price = 50 } },
         { 'W', new Product { ProductSku = 'W', Price = 20 } },
-        { 'X', new Product { ProductSku = 'X', Price = 90 } },
-        { 'Y', new Product { ProductSku = 'Y', Price = 10 } },
-        { 'Z', new Product { ProductSku = 'Z', Price = 50 } },
+        { 'X', new Product { ProductSku = 'X', Price = 17 } },
+        { 'Y', new Product { ProductSku = 'Y', Price = 20 } },
+        { 'Z', new Product { ProductSku = 'Z', Price = 21 } },
     };
     
     public Product? GetByProductSku(char productSku)

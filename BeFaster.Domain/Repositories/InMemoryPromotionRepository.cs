@@ -14,7 +14,7 @@ public class InMemoryPromotionRepository : IPromotionRepository<Promotion>
         new Promotion {ProductSkus = ['F'],RequiredQuantity = 3, FreeProductSku = 'F', Type = PromotionType.BuyXGetYFree},  // 2F get one F free   |YOU have to have at least 3 items in a basket
         new Promotion {ProductSkus = ['H'],RequiredQuantity = 5, PromoPrice = 45, Type = PromotionType.BulkBuy},
         new Promotion {ProductSkus = ['H'],RequiredQuantity = 10, PromoPrice = 80, Type = PromotionType.BulkBuy},
-        new Promotion {ProductSkus = ['k'],RequiredQuantity = 2, PromoPrice = 150, Type = PromotionType.BulkBuy},
+        new Promotion {ProductSkus = ['K'],RequiredQuantity = 2, PromoPrice = 120, Type = PromotionType.BulkBuy},
         new Promotion {ProductSkus = ['N'],RequiredQuantity = 3, FreeProductSku = 'M', Type = PromotionType.BuyXGetYFree},
         new Promotion {ProductSkus = ['P'],RequiredQuantity = 5, PromoPrice = 200, Type = PromotionType.BulkBuy},
         new Promotion {ProductSkus = ['Q'],RequiredQuantity = 3, PromoPrice = 80, Type = PromotionType.BulkBuy},
@@ -22,6 +22,7 @@ public class InMemoryPromotionRepository : IPromotionRepository<Promotion>
         new Promotion {ProductSkus = ['U'],RequiredQuantity = 4, FreeProductSku = 'U', Type = PromotionType.BuyXGetYFree},
         new Promotion {ProductSkus = ['V'],RequiredQuantity = 2, PromoPrice = 90, Type = PromotionType.BulkBuy},
         new Promotion {ProductSkus = ['V'],RequiredQuantity = 3, PromoPrice = 130, Type = PromotionType.BulkBuy},
+        new Promotion {ProductSkus = ['S','T','X','Y','Z'],RequiredQuantity = 3, PromoPrice = 45, Type = PromotionType.BulkBuy},
     };
     public IEnumerable<Promotion> GetAll()
     {
@@ -33,3 +34,4 @@ public class InMemoryPromotionRepository : IPromotionRepository<Promotion>
         _promotions.Add(entity);
     }
 }
+
