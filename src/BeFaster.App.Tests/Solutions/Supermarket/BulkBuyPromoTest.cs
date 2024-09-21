@@ -46,11 +46,17 @@ public class BulkBuyPromoTest
         var worsePromo = new BulkBuyPromo(new List<char> { 'a' },3,120m);
         _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 40m, AppliedPromo = worsePromo});
         _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 40m, AppliedPromo = worsePromo});
-        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 40m, AppliedPromo = null});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 40m, AppliedPromo = worsePromo});
         
-
         // Act 
+        _promo.ApplyDiscount(_receipt);
 
         // Assert
+        var discountedItems = _receipt.ReceiptItems.Where(item => item.AppliedPromo == _promo).ToList();
+        Assert.That(discountedItems.Count, Is.EqualTo(3));
+        Assert.IsTrue(discountedItems.All(item => Math.Round(item.DiscountedTotal, 2) == 33.33m));
     }
+    
+    [Test]
+    public void ApplyDiscounts_ShouldNotApplyPromotions_WhenNoEligibleItemsPresent
 }
