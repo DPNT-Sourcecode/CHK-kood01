@@ -74,7 +74,23 @@ public class BuyXGetYFreePromoTests
         
         // Assert 
         var freeItems = _receipt.ReceiptItems.Where(item => item.ProductSku == 'C' && item.AppliedPromo == _promo).ToList();
-
         Assert.That(freeItems.Count, Is.EqualTo(0));
+    }
+    
+    [Test]
+    public void ApplyDiscounts_ShouldApplyPromo_WhenMultipleProductSkus()
+    {
+        // Arrange 
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 100m, AppliedPromo = null});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'A', Total = 50m, DiscountedTotal = 100m, AppliedPromo = null});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'B', Total = 50m, DiscountedTotal = 100m, AppliedPromo = null});
+        _receipt.ReceiptItems.Add(new ReceiptItem{ProductSku = 'C', Total = 50m, DiscountedTotal = 50m, AppliedPromo = null});
+        
+        // Act
+        _promo.ApplyDiscount(_receipt);
+        
+        // Assert 
+        var freeItems = _receipt.ReceiptItems.Where(item => item.ProductSku == 'C' && item.AppliedPromo == _promo).ToList();
+        Assert.That(freeItems.Count, Is.EqualTo(1));
     }
 }
